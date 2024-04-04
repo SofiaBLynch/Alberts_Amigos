@@ -82,14 +82,21 @@
       var email = document.getElementById('email').value;
       var password1 = document.getElementById('password1').value;
       var password2 = document.getElementById('password2').value;
-
+      var nameData = document.getElementById('name').value;
+      var UFID = document.getElementById('ufid').value;
+	  
       var emailError = document.getElementById('emailError');
       var passwordError = document.getElementById('passwordError');
+      var nameError = document.getElementById('nameError');
+	  var ufidError = document.getElementById('ufidError');
+	  
       var isValid = true;
 
       emailError.textContent = ''; // Clear previous error message
       passwordError.textContent = ''; // Clear previous error message
-
+	  nameError.textContent = '';
+	  ufidError.textContent = '';
+	  
       // Email validation using regular expression
       var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
@@ -108,6 +115,16 @@
         passwordError.textContent = 'Password must be at least 8 characters long.';
         isValid = false;
       }
+	  
+	  if (nameData.length < 1) {
+		  nameError.textContent = "Please enter a name";
+		  isValid = false;
+	  }
+	  
+	  if (UFID.length != 8) {
+		  ufidError.textContent = "Please enter your valid UFID";
+		  isValid = false;
+	  }
 
       // You can add more password strength criteria checks here
 
@@ -123,6 +140,21 @@
         <h2 class="text-center mb-4">Signup for GatorLink</h2>
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">
           <div class="form-group">
+            <label for="name">Name</label>
+            <input type="name" class="form-control" id="name" name="name" placeholder="Enter full name">
+            <span id="nameError" class="validation-message"></span>
+          </div>
+		  <div class="form-group">
+            <label for="name">UFID</label>
+            <input type="name" class="form-control" id="ufid" name="ufid" placeholder="Enter UFID">
+            <span id="ufidError" class="validation-message"></span>
+          </div>
+		  <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            <span id="emailError" class="validation-message"></span> <!-- Validation message for email -->
+          </div>
+		  <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
             <span id="emailError" class="validation-message"></span> <!-- Validation message for email -->
