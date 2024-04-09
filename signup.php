@@ -1,3 +1,4 @@
+#!/usr/local/bin/php
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -154,11 +155,6 @@
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
             <span id="emailError" class="validation-message"></span> <!-- Validation message for email -->
           </div>
-		  <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
-            <span id="emailError" class="validation-message"></span> <!-- Validation message for email -->
-          </div>
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password1" name="password" placeholder="Enter password">
@@ -185,10 +181,10 @@
 
 <?php
 // Database connection setup (use your actual database credentials)
-$host = 'your_database_host';
-$username = 'your_username';
-$password = 'your_password';
-$database = 'your_database_name';
+$host = 'mysql.cise.ufl.edu';
+$username = '';
+$password = '';
+$database = 'AlbertsAmigos';
 
 $conn = mysqli_connect($host, $username, $password, $database);
 
@@ -199,11 +195,13 @@ if (!$conn) {
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Sanitize form data
+    $UFID = mysqli_real_escape_string($conn, $_POST['ufid']);
+    $fullname = mysqli_real_escape_string($conn, $_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
-
+    $isAdmin = 0;
     // Your SQL query to insert data into the database
-    $sql = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
+    $sql = "INSERT INTO Users (UFID, fullname, email, passwordhash, isAdmin) VALUES ('$UFID', '$fullname', '$email', '$password', '$isAdmin')";
 
     if (mysqli_query($conn, $sql)) {
         echo 'Signup successful!';
