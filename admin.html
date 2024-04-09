@@ -15,13 +15,35 @@
     <div class="adminForms">
         <div class = "form" id="addOrganizationForm">
             <h3> Add Organization </h3>
+            <form class="adminInputForm">
+                <label for="addOrganizationName">Name of Organziation:</label>
+                <input type="text" id="addOrganizationName" autofocus placeholder="Women in Computer Science and Engineering"><br>
+                <label for="addOrganizationAbbreviation">Abbreviation of Organization:</label>
+                <input type="text" id="addOrganizationAbbreviation" autofocus placeholder="WiCSE"><br>
+                <label for="addOrganizationEmail">President's Email</label>
+                <input type="text" id="addOrganizationEmail" autofocus placeholder="albert@ufl.edu"><br>
+                <input type="submit" class="submitAdmin" id="addOrganizationSubmit"></input>
+            </form>
         </div>
         <div class = "form" id="removePresidentForm">
-            <h3> Remove President </h3>
+            <h3> Add President </h3>
+            <form class="adminInputForm">
+                <label for="addPresidentOrganization">Name of Organziation:</label>
+                <input type="text" id="addPresidentOrganization" autofocus placeholder="Women in Computer Science and Engineering"><br>
+                <label for="addPresidentEmail">President's Email</label>
+                <input type="text" id="addOrganizationEmail" autofocus placeholder="albert@ufl.edu"><br>
+                <input type="submit" class="submitAdmin" id="addPresidentSubmit"></input>
+            </form>
         </div>
         <div class = "form" id="addPresidentForm">
-            <h3> Add President </h3>
-            
+            <h3> Remove President </h3>
+            <form class="adminInputForm">
+                <label for="removePresidentOrganization">Name of Organziation:</label>
+                <input type="text" id="removePresidentOrganization" autofocus placeholder="Women in Computer Science and Engineering"><br>
+                <label for="removePresidentEmail">President's Email</label>
+                <input type="text" id="removeOrganizationEmail" autofocus placeholder="albert@ufl.edu"><br>
+                <input type="submit" class="submitAdmin" id="removePresidentSubmit"></input>
+            </form>
         </div> 
     </div>
 </body>

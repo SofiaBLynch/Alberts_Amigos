@@ -31,14 +31,72 @@ h2, h3
 
 .adminForms
 {
+    display: flex;
     flex-flow: row wrap;
-    justify-content: center;
-    align-items: start;
-    width:auto;
-    border: 4px black;
+    justify-content: space-around;
+    align-items: flex-start;
+    align-content: flex-start;
 }
 .form
 {
     background-color: #FA440E;
-   
+    width: 30%;
+    min-width: 200px;
+    border-radius: 5px;
+    margin: 10px;
+}
+.form h3{
+    color:white;
+    font-size: 25px;
+    margin: 15px;
+}
+.adminInputForm
+{
+    margin: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    color:white;
+    font-size: 20px;
+}
+
+input[type="text"]
+{
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid #8d2606;
+    font-size: 16px;
+}
+
+input[type="text"]:hover
+{
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid #8d2606;
+}
+
+.submitAdmin
+{
+    display:block;
+    width: 100px;
+    margin: auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+input[type="submit"]
+{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    background-color: rgb(246, 170, 143);
+}
+
+input[type="submit"]:hover
+{
+    background-color: rgb(215, 147, 122);
+}
+input[type="submit"]:active
+{
+    background-color: rgb(210, 98, 57);
 }
