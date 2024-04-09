@@ -3,9 +3,42 @@ h1
     text-align:center;
     color: #002C88;
 }
-ul 
-{
-    list-style-type: none;
-    flex-flow: row wrap;
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #292a7a;
+    padding: 10px 0;
 }
 
+.navbar a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #dddddd;
+    color: black;
+}
+
+
+h2, h3
+{
+    text-align: center;
+    color:black;
+}
+
+.adminForms
+{
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: start;
+    width:auto;
+    border: 4px black;
+}
+.form
+{
+    background-color: #FA440E;
+   
+}
