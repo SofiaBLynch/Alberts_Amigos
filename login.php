@@ -79,7 +79,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6 login-box">
         <h2 class="text-center mb-4">Login to GatorLink</h2>
-        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <form method="POST">
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
@@ -90,7 +90,7 @@
           </div>
           <div class="button-container">
             <button type="submit" name="login" class="btn btn-custom-1">Login</button>
-            <button type="button" class="btn btn-custom-2">Sign Up</button>
+            <a href="signup.php" class="btn btn-custom-2">Sign Up</a>
           </div>
         </form>
       </div>
@@ -109,10 +109,10 @@
     $password = $_POST['password'];
 
     // Your database connection code (replace placeholders with actual values)
-    $servername = "localhost";
-    $username = "username";
-    $password_db = "password";
-    $dbname = "database_name";
+    $servername = 'mysql.cise.ufl.edu';
+    $username = '';
+    $password_db = '';
+    $dbname = 'AlbertsAmigos';
 
     // Create connection
     $conn = new mysqli($servername, $username, $password_db, $dbname);
@@ -123,13 +123,11 @@
     }
 
     // SQL query to check if user exists
-    $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+    $sql = "SELECT * FROM Users WHERE email='$email' AND passwordhash='$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-      // User authenticated successfully
-      echo "<script>alert('Login successful');</script>";
-      // Redirect to another page or perform other actions
+      echo "<script>alert('Login successful'); window.location.href = 'hub_page.html';</script>";
     } else {
       echo "<script>alert('Invalid credentials');</script>";
     }
