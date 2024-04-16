@@ -182,7 +182,7 @@
 <?php
 // Database connection setup (use your actual database credentials)
 $host = 'mysql.cise.ufl.edu';
-$username = '';
+$username = 'krishtalati';
 $password = '';
 $database = 'AlbertsAmigos';
 
@@ -192,23 +192,24 @@ if (!$conn) {
     die('Database connection error: ' . mysqli_connect_error());
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Sanitize form data
-    $UFID = mysqli_real_escape_string($conn, $_POST['ufid']);
+
+  $UFID = mysqli_real_escape_string($conn, $_POST['ufid']);
     $fullname = mysqli_real_escape_string($conn, $_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $isAdmin = 0;
-    // Your SQL query to insert data into the database
+
     $sql = "INSERT INTO Users (UFID, fullname, email, passwordhash, isAdmin) VALUES ('$UFID', '$fullname', '$email', '$password', '$isAdmin')";
 
-    if (mysqli_query($conn, $sql)) {
-        echo 'Signup successful!';
-    } else {
-        echo 'Error: ' . mysqli_error($conn);
+    if (mysqli_query($conn, $sql)){
+    echo '<script>alert("Signup successful!"); window.location.href = "login.php";</script>';
+    } 
+    else {
+    echo 'Error: ' . mysqli_error($conn);
     }
+  
 
-    mysqli_close($conn); // Close database connection
+    mysqli_close($conn); 
 }
 ?>
