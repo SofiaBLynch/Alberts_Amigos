@@ -20,25 +20,25 @@
 	  margin-bottom: 20px;
 	}
 	.btn-custom-1 {
-      background-color: #006A35; /* Custom color for buttons */
+      background-color: #006A35; 
       border-color: #002C88;
-      width: 100%; /* Equal width for buttons in a row */
+      width: 100%; 
 	  font-size: 16px;
     }
 
     .btn-custom-1:hover {
-      background-color: #006A35; /* Custom color for buttons on hover */
+      background-color: #006A35; 
       border-color: #002C88;
     }
 	.btn-custom-2 {
-      background-color: #FA440E; /* Custom color for buttons */
+      background-color: #FA440E; 
       border-color: #002C88;
       width: 100%;
 	  font-size: 16px;
     }
 
     .btn-custom-2:hover {
-      background-color: #FA440E; /* Custom color for buttons on hover */
+      background-color: #FA440E; 
       border-color: #002C88;
     }
 	.rowdies-light {
@@ -62,15 +62,15 @@
 	.button-container {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px; /* Add margin for spacing */
+      margin-top: 20px; 
     }
 	.login-box {
       margin-top: 100px;
 	  width: 400px;
-      background-color: #d3d3d3; /* White background color */
-      border: 2px solid #002C88; /* Blue border */
+      background-color: #d3d3d3; 
+      border: 2px solid #002C88; 
       border-radius: 8px; 
-      padding: 10px; /* Add padding inside the box */
+      padding: 10px; 
     }
   </style>
 </head>
@@ -110,14 +110,12 @@
 
     // Your database connection code (replace placeholders with actual values)
     $servername = 'mysql.cise.ufl.edu';
-    $username = '';
+    $username = 'krishtalati';
     $password_db = '';
     $dbname = 'AlbertsAmigos';
 
-    // Create connection
     $conn = new mysqli($servername, $username, $password_db, $dbname);
 
-    // Check connection
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }
