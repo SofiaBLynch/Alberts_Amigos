@@ -1,12 +1,12 @@
 h1
 {
     text-align:center;
-    color: #002C88;
+    color: #3876ce;
 }
 .navbar {
     display: flex;
     justify-content: center;
-    background-color: #292a7a;
+    background-color: #1155b4;
     padding: 10px 0;
 }
 
@@ -39,7 +39,7 @@ h2, h3
 }
 .form
 {
-    background-color: #FA440E;
+    background-color: 	#609aec;
     width: 30%;
     min-width: 200px;
     border-radius: 5px;
@@ -59,12 +59,12 @@ h2, h3
     font-size: 20px;
 }
 
-input[type="text"]
+input[type="text"], select
 {
     margin-bottom: 10px;
     width: 100%;
     border-radius: 5px;
-    border: 2px solid #8d2606;
+    border: 2px solid #4663ac	;
     font-size: 16px;
 }
 
@@ -73,7 +73,7 @@ input[type="text"]:hover
     margin-bottom: 10px;
     width: 100%;
     border-radius: 5px;
-    border: 2px solid #8d2606;
+    border: 2px solid #415b9b	;
 }
 
 .submitAdmin
@@ -89,28 +89,28 @@ input[type="submit"]
 {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: bold;
-    background-color: rgb(246, 170, 143);
+    background-color: 	#c1d8f0	;
 }
 
 input[type="submit"]:hover
 {
-    background-color: rgb(215, 147, 122);
+    background-color: 	#a3cbf5;
 }
 input[type="submit"]:active
 {
-    background-color: rgb(210, 98, 57);
+    background-color: #74aeed;
 }
 
-#orgData
+.orgData
 {
-    background-color: #FA440E;
+    background-color: #3876ce;
     border-radius: 5px;
     padding: 10px;
     margin-left: 1.5%;
     margin-right: 1.5%;
     display:block;
 }
-#orgData h3 
+.orgData h3
 {
     color:white;
 }
@@ -128,14 +128,13 @@ tr{
 
 }
 table th, table td{
-    color:white;
+    background-color: white;
     text-align: center;
     padding: 3px;
     border: 1px solid black;
 }
 .orgDataRow, .orgDataRow td
 {
-    background-color: white;
     color:black;
     
 }
@@ -152,4 +151,10 @@ table th, table td{
 {
     padding: 4px;
 
+}
+
+.errorMsg
+{
+    font-weight: bold;
+    font-size:13px;
 }
