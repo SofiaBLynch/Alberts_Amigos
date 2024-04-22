@@ -32,18 +32,30 @@ h2, h3
 .adminForms
 {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    align-items: flex-start;
-    align-content: flex-start;
+    flex-flow: wrap;
+    justify-content: flex-start;
 }
 .form
 {
     background-color: 	#609aec;
-    width: 30%;
-    min-width: 200px;
+    flex: 1 1 auto;
+    max-width: calc(25% - 15px);
+    margin-right: 15px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
     border-radius: 5px;
-    margin: 10px;
+}
+@media screen and (max-width: 768px) {
+    .form {
+        max-width: calc(50% - 15px); /* 2 forms in a row with 15px max gap */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .form {
+        max-width: 100%; /* Forms stack up on smaller screens */
+        margin-right: 0;
+    }
 }
 .form h3{
     color:white;
@@ -158,3 +170,4 @@ table th, table td{
     font-weight: bold;
     font-size:13px;
 }
+

@@ -119,18 +119,18 @@
                 document.getElementById("changePresidentOrganizationError").innerHTML = "*Required: Select an organization";
                 ready = false;
             }
-            var oldEmail = document.getElementByID("changePresidentEmailOld").value;
-            if(oldEmail === NULL || oldEmail === "")
+            var oldEmail = document.getElementById("changePresidentOldEmail").value;
+            if(oldEmail === "")
             {
-                document.getElementById("changePresidentErrorOld").innerHTML = "*Error: No current presdient. Complete add president form";
-                return false; 
+                document.getElementById("changePresidentEmailErrorOld").innerHTML = "*Required: Input current president email";
+                ready = false; 
             }
             
             
-            var email =document.getElementById("changePresidentEmailNew").value;
+            var email =document.getElementById("changePresidentNewEmail").value;
             if(!checkEmail(email))
             {
-                document.getElementById("changePresidentEmailErrorNew").innerHTML = "*Required: Input valid UFL email";
+                document.getElementById("changePresidentEmailErrorNew").innerHTML = "*Required: Input valid UFL email for the new president";
                 ready = false; 
             }
             
@@ -182,7 +182,13 @@
             $cmd = "UPDATE Clubs SET email='$orgEmail' WHERE name='$orgName'";
             $mysqli->query($cmd);
         }
-        
+        if(array_key_exists("changePresidentSubmit", $_POST))
+        {
+            $orgName = $_POST["changePresidentOrganization"];
+            $orgEmail = $_POST["changePresidentNewEmail"];
+            $cmd = "UPDATE Clubs SET email='$orgEmail' WHERE name='$orgName'";
+            $mysqli->query($cmd);
+        }
     ?>
     <h1 style="color:black"> Admin </h1>
     <div class="adminForms">
@@ -204,7 +210,6 @@
                 <input type="submit" class="submitAdmin" id="addOrganizationSubmit" name = "addOrganizationSubmit"></input>
             </form>
         </div>
-        
         <div class = "form" id="addPresidentForm">
             <h3> Add President </h3>
             <form class="adminInputForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return checkAddPres();">
@@ -219,7 +224,7 @@
                             echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
                             exit();
                         } 
-                   
+                
                         $result = $mysqli->query("SELECT * from Clubs");
                         if($result->num_rows > 0)
                         {
@@ -239,9 +244,9 @@
                 <input type="text" id="addPresidentEmail" name="addPresidentEmail"autofocus placeholder="albert@ufl.edu"><br>
                 <input type="submit" class="submitAdmin" id="addPresidentSubmit" name="addPresidentSubmit"></input>
             </form>
-            
+                    
         </div>
-        <div class = "form" id="removePresidentForm">
+        <div class="form" id="removePresidentForm">
             <h3> Remove President </h3>
             <form class="adminInputForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return checkRemovePres();">                
                 <p class="errorMsg" id="removePresidentOrganizationError">
@@ -289,7 +294,7 @@
                             echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
                             exit();
                         } 
-                   
+                
                         $result = $mysqli->query("SELECT * from Clubs");
                         if($result->num_rows > 0)
                         {
@@ -310,10 +315,11 @@
                 <input type="submit" class="submitAdmin" id="removePresidentSubmit" name="removePresidentSubmit"></input>
             </form>
         </div> 
+    
         <div class = "form" id="changePresidentForm">
             <h3> Change President </h3>
             <form class="adminInputForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return checkChangePres();">
-                <p class="errorMsg" id="changePresidentEmailError"></p>            
+                <p class="errorMsg" id="changePresidentOrganizationError"></p>            
                 <label for="changePresidentOrganization">Name of Organization:</label>
                 <select id="changePresidentOrganization" name="changePresidentOrganization">
                     <option value="select">Select</option>
@@ -324,7 +330,7 @@
                             echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
                             exit();
                         } 
-                   
+                
                         $result = $mysqli->query("SELECT * from Clubs");
                         
                         if($result->num_rows > 0)
@@ -342,10 +348,10 @@
                 </select><br>
                 <p class="errorMsg" id="changePresidentEmailErrorOld"></p>            
                 <label for="changePresidentOldEmail">Old President's Email</label>
-                <input type="text" id="changePresidentOldEmail" autofocus placeholder="albert@ufl.edu"><br>
+                <input type="text" id="changePresidentOldEmail" name="changePresidentOldEmail" autofocus placeholder="albert@ufl.edu"><br>
                 <p class="errorMsg" id="changePresidentEmailErrorNew"></p>            
                 <label for="changePresidentNewEmail">New President's Email</label>
-                <input type="text" id="changePresidentNewEmail" autofocus placeholder="newAlbert@ufl.edu"><br>
+                <input type="text" id="changePresidentNewEmail" name="changePresidentNewEmail" autofocus placeholder="newAlbert@ufl.edu"><br>
                 <input type="submit" class="submitAdmin" id="changePresidentSubmit" name="changePresidentSubmit"></input>
             </form>
         </div> 
