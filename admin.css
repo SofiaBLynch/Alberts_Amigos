@@ -37,13 +37,15 @@ h2, h3
 }
 .form
 {
-    background-color: 	#609aec;
+    /* background-color: 	#609aec; */
+    box-shadow: -.1em -.1em 1em rgba(202, 217, 233);
     flex: 1 1 auto;
     max-width: calc(25% - 15px);
     margin-right: 15px;
     margin-bottom: 30px;
     box-sizing: border-box;
     border-radius: 5px;
+    border: 1px solid rgb(202, 217, 233);
 }
 @media screen and (max-width: 768px) {
     .form {
@@ -58,7 +60,7 @@ h2, h3
     }
 }
 .form h3{
-    color:white;
+    /* color:white; */
     font-size: 25px;
     margin: 15px;
 }
@@ -67,7 +69,7 @@ h2, h3
     margin: 4px;
     padding: 10px;
     margin-bottom: 10px;
-    color:white;
+    /* color:white; */
     font-size: 20px;
 }
 
@@ -100,7 +102,7 @@ input[type="text"]:hover
 input[type="submit"]
 {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-weight: bold;
+    /* font-weight: bold; */
     background-color: 	#c1d8f0	;
 }
 
@@ -115,24 +117,21 @@ input[type="submit"]:active
 
 .orgData
 {
-    background-color: #3876ce;
+    box-shadow: -.1em -.1em 1em rgba(202, 217, 233);
+    /* background-color: #3876ce; */
     border-radius: 5px;
     padding: 10px;
     margin-left: 1.5%;
     margin-right: 1.5%;
     display:block;
 }
-.orgData h3
-{
-    color:white;
-}
+
 table
 {
     width: 98%;
     margin: auto;
     border-collapse: collapse;
     border-spacing: 0;
-    border-radius: 5px;
     overflow: hidden;
 }
 tr{
@@ -140,7 +139,7 @@ tr{
 
 }
 table th, table td{
-    background-color: white;
+    /* background-color: white; */
     text-align: center;
     padding: 3px;
     border: 1px solid black;
@@ -161,13 +160,36 @@ table th, table td{
 
 #AdminViewAll
 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
     padding: 4px;
+    background-color: 	#c1d8f0	;
+    padding: 5px;
+    border-radius: 5px;
 
 }
 
+#AdminViewAll:hover
+{
+    background-color: 	#a3cbf5;
+}
+#AdminViewAll:active
+{
+    background-color: #74aeed;
+}
+.head
+{
+    background-color: #c1d8f0;
+}
+.odd
+{
+    background-color:	#ecf5ff;
+
+}
 .errorMsg
 {
     font-weight: bold;
     font-size:13px;
+    color:red;
+    
 }
 

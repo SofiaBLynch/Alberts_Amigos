@@ -207,7 +207,7 @@
                 <p class="errorMsg" id="addOrganizationEmailError"></p>
                 <label for="addOrganizationEmail">President's Email</label>
                 <input type="text" id="addOrganizationEmail" name="addOrganizationEmail"autofocus placeholder="albert@ufl.edu"><br>
-                <input type="submit" class="submitAdmin" id="addOrganizationSubmit" name = "addOrganizationSubmit"></input>
+                <input type="submit" class="submitAdmin" id="addOrganizationSubmit" name = "addOrganizationSubmit" value="Submit"></input>
             </form>
         </div>
         <div class = "form" id="addPresidentForm">
@@ -242,7 +242,7 @@
                 <p class="errorMsg" id="addPresidentEmailError"></p>
                 <label for="addPresidentEmail">President's Email</label>
                 <input type="text" id="addPresidentEmail" name="addPresidentEmail"autofocus placeholder="albert@ufl.edu"><br>
-                <input type="submit" class="submitAdmin" id="addPresidentSubmit" name="addPresidentSubmit"></input>
+                <input type="submit" class="submitAdmin" id="addPresidentSubmit" name="addPresidentSubmit" value="Submit"></input>
             </form>
                     
         </div>
@@ -312,7 +312,7 @@
                 <p class="errorMsg" id="removePresidentEmailError"></p>            
                 <label for="removePresidentEmail">President's Email</label>
                 <input type="text" id="removePresidentEmail" name="removePresidentEmail" autofocus placeholder="albert@ufl.edu"><br>
-                <input type="submit" class="submitAdmin" id="removePresidentSubmit" name="removePresidentSubmit"></input>
+                <input type="submit" class="submitAdmin" id="removePresidentSubmit" name="removePresidentSubmit" value="Submit"></input>
             </form>
         </div> 
     
@@ -352,7 +352,7 @@
                 <p class="errorMsg" id="changePresidentEmailErrorNew"></p>            
                 <label for="changePresidentNewEmail">New President's Email</label>
                 <input type="text" id="changePresidentNewEmail" name="changePresidentNewEmail" autofocus placeholder="newAlbert@ufl.edu"><br>
-                <input type="submit" class="submitAdmin" id="changePresidentSubmit" name="changePresidentSubmit"></input>
+                <input type="submit" class="submitAdmin" id="changePresidentSubmit" name="changePresidentSubmit" value="Submit"></input>
             </form>
         </div> 
     </div>
@@ -360,7 +360,7 @@
     <div class="orgData">
         <h3>On-Campus Involvement</h3>
         <table>
-            <tr>
+            <tr class="head">
                 <th>Organization</th>
                 <th>President Email</th>
                 <th># of Members</th>
@@ -374,7 +374,7 @@
                 <td> 25 </td>
                 <td> 4 </td>
             </tr>
-            <tr class="orgDataRow">
+            <tr class="orgDataRow odd" >
                 <td>Women in Computer Science and Engineering</td>
                 <td>albert@ufl.edu</td>
                 <td> 120 </td>
