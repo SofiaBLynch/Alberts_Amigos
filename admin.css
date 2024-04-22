@@ -39,7 +39,7 @@ h2, h3
 .form
 {
     background-color: white;
-    box-shadow: -.1em -.1em 1em rgb(221, 230, 239);
+    box-shadow: -.1em -.1em 1em rgb(211, 226, 240);
     flex: 1 1 auto;
     max-width: calc(25% - 15px);
     margin-right: 15px;
@@ -136,7 +136,10 @@ table
 }
 tr{
     border-radius: 5px;
-
+}
+tr:hover
+{
+    background-color: #a2c8f0;
 }
 table th, table td{
     /* background-color: white; */
@@ -149,6 +152,7 @@ table th, table td{
     color:black;
     
 }
+
 
 #orgDataButton
 {
@@ -176,9 +180,9 @@ table th, table td{
 {
     background-color: #74aeed;
 }
-.head
+.head, .head:hover
 {
-    background-color: #c1d8f0;
+    background-color: #74aeed;
 }
 .odd
 {

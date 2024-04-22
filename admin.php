@@ -172,14 +172,14 @@
     </script>
 </head>
 <body>
-   
-
-    <h1>GatorMeet</h1>
-    <div class="navbar">
-        <a href="./member_view.html">My Clubs</a>
-        <a href="./admin.php">Admin</a>
-        <a href="#">Search</a>
-        <a href="#">Engagement</a>
+    <div id="topBar">
+        <h1>GatorMeet</h1>
+        <div class="navbar">
+            <a href="./member_view.html">My Clubs</a>
+            <a href="./admin.php">Admin</a>
+            <a href="#">Search</a>
+            <a href="#">Engagement</a>
+        </div>
     </div>
     <?php
         $mysqli = new mysqli("mysql.cise.ufl.edu", "sofia.lynch", "Ramiro2012", "AlbertsAmigos");
