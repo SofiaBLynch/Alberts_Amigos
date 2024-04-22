@@ -16,7 +16,7 @@
 	h2 {
 	  color: #002C88;
 	  font-weight: 400;
-	  font-szie: 28px;
+	  font-size: 28px;
 	  margin-bottom: 20px;
 	}
 	.btn-custom-1 {

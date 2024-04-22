@@ -136,10 +136,36 @@
             
             if(ready)
             {
-                console.log('ready');
                 return true;
             } else {
-                console.log('not');
+                return false;
+            }
+        }
+        function removeOrganization()
+        {
+            document.getElementById("removeOrganizationError").innerHTML = "";
+            document.getElementById("removeOrganizationConfirmError").innerHTML = "";
+            var ready = true;
+            var org = document.getElementById("removeOrganizationSelect").value;
+            var orgConfirm = document.getElementById("removeOrganizationConfirmSelect").value;
+            if(org === "select")
+            {
+                document.getElementById("removeOrganizationError").innerHTML = "*Required: Select Organization to Remove";
+                ready = false; 
+            }
+            if(orgConfirm === "select")
+            {
+                document.getElementById("removeOrganizationConfirmError").innerHTML = "*Required: Confirm Organization to Remove";
+                ready = false; 
+            } else if(orgConfirm != org) {
+                document.getElementById("removeOrganizationConfirmError").innerHTML = "*Required: Confirm Organization to Must Match Selection Made Above";
+                ready = false; 
+            }
+            
+            if(ready)
+            {
+                return true;
+            } else {
                 return false;
             }
         }
@@ -151,7 +177,7 @@
     <h1>GatorMeet</h1>
     <div class="navbar">
         <a href="./member_view.html">My Clubs</a>
-        <a href="./admin.html">Admin</a>
+        <a href="./admin.php">Admin</a>
         <a href="#">Search</a>
         <a href="#">Engagement</a>
     </div>
@@ -187,6 +213,12 @@
             $orgName = $_POST["changePresidentOrganization"];
             $orgEmail = $_POST["changePresidentNewEmail"];
             $cmd = "UPDATE Clubs SET email='$orgEmail' WHERE name='$orgName'";
+            $mysqli->query($cmd);
+        }
+        if(array_key_exists("removeOrganizationSubmit", $_POST))
+        {
+            $orgName = $_POST["removeOrganizationSelect"];
+            $cmd = "DELETE from Clubs WHERE ClubId=$orgName";
             $mysqli->query($cmd);
         }
     ?>
@@ -356,8 +388,72 @@
             </form>
         </div> 
     </div>
+    
+    <div class = "form" id="deleteOrganizationForm">
+            <h3> Remove Organization </h3>
+            <form class="adminInputForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return removeOrganization();">
+                <p class="errorMsg" id="removeOrganizationError"></p>            
+                <label for="removeOrganizationSelect">Name of Organization Being Removed:</label>
+                <select id="removeOrganizationSelect" name="removeOrganizationSelect">
+                    <option value="select">Select</option>
+                    <?php
+                        $mysqli = new mysqli("mysql.cise.ufl.edu", "sofia.lynch", "Ramiro2012", "AlbertsAmigos");
+                        // Check connection
+                        if ($mysqli -> connect_errno) {
+                            echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+                            exit();
+                        } 
+                
+                        $result = $mysqli->query("SELECT * from Clubs");
+                        
+                        if($result->num_rows > 0)
+                        {
+                            $options = "";
+                            
+                            while($row = $result->fetch_assoc())
+                            {
+                                $name = $row['name'];
+                                $id = $row['ClubID'];
+                                $options .= "<option value='$id'>$name</option>";
+                            }
+                            echo($options);
+                        } 
+                    ?>
+                </select><br>
+                <p class="errorMsg" id="removeOrganizationConfirmError"></p>            
+                <label for="removeOrganizationConfirmSelect">Confirm Organization Being Removed:</label>
+                <select id="removeOrganizationConfirmSelect" name="removeOrganizationConfirmSelect">
+                    <option value="select">Select</option>
+                    <?php
+                        $mysqli = new mysqli("mysql.cise.ufl.edu", "sofia.lynch", "Ramiro2012", "AlbertsAmigos");
+                        // Check connection
+                        if ($mysqli -> connect_errno) {
+                            echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+                            exit();
+                        } 
+                
+                        $result = $mysqli->query("SELECT * from Clubs");
+                        
+                        if($result->num_rows > 0)
+                        {
+                            $options = "";
+                            
+                            while($row = $result->fetch_assoc())
+                            {
+                                $name = $row['name'];
+                                $id = $row['ClubID'];
+                                $options .= "<option value='$id'>$name</option>";
+                            }
+                            echo($options);
+                        } 
+                    ?>
+                </select><br>
+                <input type="submit" class="submitAdmin" id="removeOrganizationSubmit" name="removeOrganizationSubmit" value="Submit"></input>
+            </form>
+        </div> 
+    </div>
     <br>
-    <div class="orgData">
+    <div class="orgData" style="overflow-x:auto;">
         <h3>On-Campus Involvement</h3>
         <table>
             <tr class="head">
@@ -367,27 +463,42 @@
                 <th># of Events</th>
                 <th># of Events Attended/Member</th>
             </tr>
-            <tr class="orgDataRow">
-                <td>Society of Hispanic Engineers</td>
-                <td>albert@ufl.edu</td>
-                <td> 323 </td>
-                <td> 25 </td>
-                <td> 4 </td>
-            </tr>
-            <tr class="orgDataRow odd" >
-                <td>Women in Computer Science and Engineering</td>
-                <td>albert@ufl.edu</td>
-                <td> 120 </td>
-                <td> 16 </td>
-                <td> 5 </td>
-            </tr>
-            <tr class="orgDataRow">
-                <td>Indian Student Association</td>
-                <td>albert@ufl.edu</td>
-                <td> 285 </td>
-                <td> 13 </td>
-                <td> 7 </td>
-            </tr>
+            <?php
+                $mysqli = new mysqli("mysql.cise.ufl.edu", "sofia.lynch", "Ramiro2012", "AlbertsAmigos");
+                // Check connection
+                if ($mysqli -> connect_errno) {
+                    echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+                    exit();
+                } 
+        
+                $result = $mysqli->query("SELECT * from Clubs");
+                $i = 0;
+                if($result->num_rows > 0)
+                {
+                    
+                    while($club = $result->fetch_assoc())
+                    {
+                        if($i%2 == 1)
+                        {
+                            $row = "<tr class= 'orgDataRow odd'>";
+                        } else {
+                            $row = "<tr class= 'orgDataRow'>";
+                        }
+                            $name = $club['name'];
+                            $email = $club['email'];
+                            $row .= "<td>$name</td>";
+                            $row .= "<td>$email</td>";
+                            $row .= "<td>300</td>";
+                            $row .= "<td>20</td>";
+                            $row .= "<td>5</td>";
+                        $row .= "</tr>";
+                        echo($row);
+                        $i += 1; 
+
+                    }
+                    
+                } 
+            ?>
         </table>
         <br>
         
