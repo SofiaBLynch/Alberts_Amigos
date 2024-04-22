@@ -16,14 +16,14 @@
             var orgName = document.getElementById("addOrganizationName").value;
             if(orgName === "")
             {
-                document.getElementById("addOrganizationNameError").innerHTML = "*Required add organization name";
+                document.getElementById("addOrganizationNameError").innerHTML = "*Required: Add organization name";
                 ready = false; ;
             }
 
             var orgAbbrev = document.getElementById("addOrganizationAbbreviation").value;
-            if(orgAbbrev === "")
+            if(orgAbbrev === "NULL")
             {
-                document.getElementById("addOrganizationAbbreviationError").innerHTML = "*Required add organization abbreviation";
+                document.getElementById("addOrganizationAbbreviationError").innerHTML = "*Error: Organziation abbreviation can not be NULL";
                 ready = false;
             } 
 
@@ -31,7 +31,7 @@
             var email = checkEmail(orgPres);
             if(!email)
             {
-                document.getElementById("addOrganizationEmailError").innerHTML = "*Required add organization president UFL email";
+                document.getElementById("addOrganizationEmailError").innerHTML = "*Required: Add organization president UFL email";
                 ready = false;
             }
 
@@ -192,6 +192,10 @@
         {
             $orgName = $_POST["addOrganizationName"];
             $orgAbbr = $_POST["addOrganizationAbbreviation"];
+            if($orgAbbr == "")
+            {
+                $orgAbbr = "NULL";
+            }
             $orgEmail = $_POST["addOrganizationEmail"];
             $cmd = "SELECT * FROM Clubs WHERE name = '$orgName'";
             $result = $mysqli->query($cmd);
@@ -234,7 +238,7 @@
                 <label for="addOrganizationName">Name of Organization:</label>
                 <input type="text" id="addOrganizationName" name="addOrganizationName"autofocus placeholder="Women in Computer Science and Engineering"><br>
                 <p class="errorMsg" id="addOrganizationAbbreviationError"></p>
-                <label for="addOrganizationAbbreviation">Abbreviation of Organization:</label>
+                <label for="addOrganizationAbbreviation">Abbreviation of Organization: (optional)</label>
                 <input type="text" id="addOrganizationAbbreviation"  name="addOrganizationAbbreviation" autofocus placeholder="WiCSE"><br>
                 <p class="errorMsg" id="addOrganizationEmailError"></p>
                 <label for="addOrganizationEmail">President's Email</label>
@@ -478,6 +482,10 @@
                     
                     while($club = $result->fetch_assoc())
                     {
+                        if($i > 5)
+                        {
+                            break;
+                        }
                         if($i%2 == 1)
                         {
                             $row = "<tr class= 'orgDataRow odd'>";
@@ -503,7 +511,7 @@
         <br>
         
         <div id="orgDataButton">
-            <button id="AdminViewAll">View All</button>
+            <button id="AdminViewAll"><a href="./allOrgs.php">View All</a></button>
         </div>
         
     </div>
