@@ -222,6 +222,8 @@
         if(array_key_exists("removeOrganizationSubmit", $_POST))
         {
             $orgName = $_POST["removeOrganizationSelect"];
+            $cmd = "DELETE from UserClubs WHERE ClubId=$orgName";
+            $mysqli->query($cmd);
             $cmd = "DELETE from Clubs WHERE ClubId=$orgName";
             $mysqli->query($cmd);
         }
