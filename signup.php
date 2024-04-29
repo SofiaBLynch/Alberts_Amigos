@@ -193,23 +193,29 @@ if (!$conn) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+  // Collect and sanitize user inputs
   $UFID = mysqli_real_escape_string($conn, $_POST['ufid']);
-    $fullname = mysqli_real_escape_string($conn, $_POST['name']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $isAdmin = 0;
+  $fullname = mysqli_real_escape_string($conn, $_POST['name']);
+  $email = mysqli_real_escape_string($conn, $_POST['email']);
+  $password = mysqli_real_escape_string($conn, $_POST['password']);
+  $isAdmin = 0;
 
-    $sql = "INSERT INTO Users (UFID, fullname, email, passwordhash, isAdmin) VALUES ('$UFID', '$fullname', '$email', '$password', '$isAdmin')";
+  // Hash the password before storing it
+  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    if (mysqli_query($conn, $sql)){
-    echo '<script>alert("Signup successful!"); window.location.href = "login.php";</script>';
-    } 
-    else {
-    echo 'Error: ' . mysqli_error($conn);
-    }
-  
+  // Prepare the SQL statement to avoid SQL Injection
+  $stmt = $conn->prepare("INSERT INTO Users (UFID, fullname, email, passwordhash, isAdmin) VALUES (?, ?, ?, ?, ?)");
+  $stmt->bind_param("ssssi", $UFID, $fullname, $email, $hashedPassword, $isAdmin);
 
-    mysqli_close($conn); 
+  // Execute the query and check for success
+  if ($stmt->execute()){
+      echo '<script>alert("Signup successful!"); window.location.href = "login.php";</script>';
+  } else {
+      echo 'Error: ' . $stmt->error;
+  }
+
+  // Close statement and connection
+  $stmt->close();
+  mysqli_close($conn); 
 }
 ?>
