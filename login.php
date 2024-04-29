@@ -1,4 +1,5 @@
 #!/usr/local/bin/php
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,25 +21,25 @@
 	  margin-bottom: 20px;
 	}
 	.btn-custom-1 {
-      background-color: #006A35; 
+    background-color: #74aeed; 
       border-color: #002C88;
-      width: 100%; 
+      width: 100%;
 	  font-size: 16px;
     }
 
     .btn-custom-1:hover {
-      background-color: #006A35; 
+      background-color: #a3cbf5; 
       border-color: #002C88;
     }
 	.btn-custom-2 {
-      background-color: #FA440E; 
+      background-color: #74aeed; 
       border-color: #002C88;
       width: 100%;
 	  font-size: 16px;
     }
 
     .btn-custom-2:hover {
-      background-color: #FA440E; 
+      background-color: #a3cbf5; 
       border-color: #002C88;
     }
 	.rowdies-light {
@@ -82,7 +83,7 @@
         <form method="POST">
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
@@ -110,11 +111,14 @@
 
     // Your database connection code (replace placeholders with actual values)
     $servername = 'mysql.cise.ufl.edu';
-    $username = 'krishtalati';
-    $password_db = '';
+    $username = 'a.olson';
+    $password_db = 'CHLK25y2687';
     $dbname = 'AlbertsAmigos';
 
     $conn = new mysqli($servername, $username, $password_db, $dbname);
+
+    $sql = "SELECT UFID FROM Users WHERE email='$email' AND passwordhash='$password'"; 
+    $result = $conn->query($sql);
 
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
@@ -125,11 +129,13 @@
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-      echo "<script>alert('Login successful'); window.location.href = 'hub_page.html';</script>";
+      $row = $result->fetch_assoc();
+      $_SESSION['user_id'] = $row['id'];  // Store user ID in session
+      header("Location: hub_page.php");   // Redirect to the hub page
+      exit();
     } else {
       echo "<script>alert('Invalid credentials');</script>";
     }
-
     $conn->close();
   }
   ?>
