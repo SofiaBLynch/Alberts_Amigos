@@ -34,7 +34,7 @@
 
     <div class="button-container">
         <?php
-        session_start(); // Ensure session is started before any output
+        session_start();
         $mysqli = new mysqli("mysql.cise.ufl.edu", "chelseanguyen", "Caa20210408", "AlbertsAmigos");
 
         // Check connection

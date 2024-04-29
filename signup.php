@@ -1,5 +1,4 @@
 #!/usr/local/bin/php
-#!/usr/local/bin/php
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,25 +20,25 @@
     margin-bottom: 20px;
   }
   .btn-custom-1 {
-      background-color: #006A35; /* Custom color for buttons */
+    background-color: #74aeed; 
       border-color: #002C88;
-      width: 100%; /* Equal width for buttons in a row */
-    font-size: 16px;
+      width: 100%;
+	  font-size: 16px;
     }
 
     .btn-custom-1:hover {
-      background-color: #006A35; /* Custom color for buttons on hover */
+      background-color: #a3cbf5; 
       border-color: #002C88;
     }
-  .btn-custom-2 {
-      background-color: #FA440E; /* Custom color for buttons */
+	.btn-custom-2 {
+      background-color: #74aeed; 
       border-color: #002C88;
       width: 100%;
-    font-size: 16px;
+	  font-size: 16px;
     }
 
     .btn-custom-2:hover {
-      background-color: #a3cbf5; /* Custom color for buttons on hover */
+      background-color: #a3cbf5; 
       border-color: #002C88;
     }
   .rowdies-light {
