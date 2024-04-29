@@ -31,14 +31,14 @@
       border-color: #002C88;
     }
 	.btn-custom-2 {
-      background-color: #FA440E; /* Custom color for buttons */
+      background-color: #74aeed; /* Custom color for buttons */
       border-color: #002C88;
       width: 100%;
 	  font-size: 16px;
     }
 
     .btn-custom-2:hover {
-      background-color: #FA440E; /* Custom color for buttons on hover */
+      background-color: #a3cbf5; /* Custom color for buttons on hover */
       border-color: #002C88;
     }
 	.rowdies-light {
@@ -140,34 +140,34 @@
       <div class="col-md-6 login-box">
         <h2 class="text-center mb-4">Signup for GatorLink</h2>
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="name" class="form-control" id="name" name="name" placeholder="Enter full name">
-            <span id="nameError" class="validation-message"></span>
-          </div>
-		  <div class="form-group">
-            <label for="name">UFID</label>
-            <input type="name" class="form-control" id="ufid" name="ufid" placeholder="Enter UFID">
-            <span id="ufidError" class="validation-message"></span>
-          </div>
-		  <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
-            <span id="emailError" class="validation-message"></span> <!-- Validation message for email -->
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password1" name="password" placeholder="Enter password">
-          </div>
-          <div class="form-group">
-            <label for="password">Re-enter Password</label>
-            <input type="password" class="form-control" id="password2" name="password" placeholder="Enter password">
-            <span id="passwordError" class="validation-message"></span> <!-- Validation message for password -->
-          </div>
-          <div class="button-container">
-            <button type="submit" class="btn btn-custom-2">Sign Up</button>
-          </div>
-        </form>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Enter full name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>">
+    <span id="nameError" class="validation-message"></span>
+  </div>
+  <div class="form-group">
+    <label for="ufid">UFID</label>
+    <input type="text" class="form-control" id="ufid" name="ufid" placeholder="Enter UFID" value="<?php echo isset($_POST['ufid']) ? htmlspecialchars($_POST['ufid']) : ''; ?>">
+    <span id="ufidError" class="validation-message"></span>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
+    <span id="emailError" class="validation-message"></span>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password1" name="password" placeholder="Enter password">
+  </div>
+  <div class="form-group">
+    <label for="password">Re-enter Password</label>
+    <input type="password" class="form-control" id="password2" name="password_confirmation" placeholder="Enter password">
+    <span id="passwordError" class="validation-message"></span>
+  </div>
+  <div class="button-container">
+    <button type="submit" class="btn btn-custom-2">Sign Up</button>
+  </div>
+</form>
       </div>
     </div>
   </div>
@@ -182,8 +182,8 @@
 <?php
 // Database connection setup (use your actual database credentials)
 $host = 'mysql.cise.ufl.edu';
-$username = 'krishtalati';
-$password = '';
+$username = 'a.olson';
+$password = 'CHLK25y2687';
 $database = 'AlbertsAmigos';
 
 $conn = mysqli_connect($host, $username, $password, $database);
