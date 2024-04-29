@@ -34,7 +34,11 @@
 
     <div class="button-container">
         <?php
+<<<<<<< HEAD
         session_start(); // Ensure session is started before any output
+=======
+        session_start();
+>>>>>>> 606cfeffc1faa2596acc37f8a9c4477547d12178
         $mysqli = new mysqli("mysql.cise.ufl.edu", "chelseanguyen", "Caa20210408", "AlbertsAmigos");
 
         // Check connection
@@ -103,4 +107,8 @@
 
 </body>
 
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 606cfeffc1faa2596acc37f8a9c4477547d12178
