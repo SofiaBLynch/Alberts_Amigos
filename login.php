@@ -87,9 +87,10 @@
       <div class="col-md-6 login-box">
         <h2 class="text-center mb-4">Login to GatorLink</h2>
         <form method="POST">
+        <form method="POST">
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
@@ -97,6 +98,7 @@
           </div>
           <div class="button-container">
             <button type="submit" name="login" class="btn btn-custom-1">Login</button>
+            <a href="signup.php" class="btn btn-custom-2">Sign Up</a>
             <a href="signup.php" class="btn btn-custom-2">Sign Up</a>
           </div>
         </form>
@@ -130,6 +132,7 @@
 
     // SQL query to check if user exists
     $sql = "SELECT * FROM Users WHERE email='$email' AND passwordhash='$password'";
+    $sql = "SELECT * FROM Users WHERE email='$email' AND passwordhash='$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -143,7 +146,6 @@
     } else {
       echo "<script>alert('Invalid credentials');</script>";
     }
-
     $conn->close();
   }
   ?>

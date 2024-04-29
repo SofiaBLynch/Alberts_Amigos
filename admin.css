@@ -1,11 +1,204 @@
+
 h1
 {
     text-align:center;
-    color: #002C88;
+    color: #0b56be;
 }
-ul 
-{
-    list-style-type: none;
-    flex-flow: row wrap;
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #1155b4;
+    padding: 10px 0;
 }
 
+.navbar a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #dddddd;
+    color: black;
+}
+
+
+h2, h3
+{
+    text-align: center;
+    color:black;
+}
+
+.adminForms
+{
+    display: flex;
+    flex-flow: wrap;
+    justify-content: flex-start;
+}
+.form
+{
+    background-color: white;
+    box-shadow: -.1em -.1em 1em rgb(211, 226, 240);
+    flex: 1 1 auto;
+    max-width: calc(25% - 15px);
+    margin-right: 15px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid rgb(202, 217, 233);
+}
+@media screen and (max-width: 768px) {
+    .form {
+        max-width: calc(50% - 15px); /* 2 forms in a row with 15px max gap */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .form {
+        max-width: 100%; /* Forms stack up on smaller screens */
+        margin-right: 0;
+    }
+}
+.form h3{
+    /* color:white; */
+    font-size: 25px;
+    margin: 15px;
+}
+.adminInputForm
+{
+    margin: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    /* color:white; */
+    font-size: 20px;
+}
+
+input[type="text"], select
+{
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid #4663ac	;
+    font-size: 16px;
+}
+
+input[type="text"]:hover
+{
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid #415b9b	;
+}
+
+.submitAdmin
+{
+    display:block;
+    width: 100px;
+    margin: auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+input[type="submit"]
+{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    /* font-weight: bold; */
+    background-color: 	#c1d8f0	;
+}
+
+input[type="submit"]:hover
+{
+    background-color: 	#a3cbf5;
+}
+input[type="submit"]:active
+{
+    background-color: #74aeed;
+}
+
+.orgData
+{
+    box-shadow: -.1em -.1em 1em rgba(202, 217, 233);
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    
+    display:block;
+}
+
+table
+{
+    width: 98%;
+    margin: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow: hidden;
+}
+tr{
+    border-radius: 5px;
+}
+tr:hover
+{
+    background-color: #a2c8f0;
+}
+table th, table td{
+    /* background-color: white; */
+    text-align: center;
+    padding: 3px;
+    border: 1px solid black;
+}
+.orgDataRow, .orgDataRow td
+{
+    color:black;
+    
+}
+
+
+#orgDataButton
+{
+    padding: 3px;
+    display:flex;
+    justify-content: center;
+   
+}
+
+#AdminViewAll, #returnAdminButton
+{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 4px;
+    background-color: 	#c1d8f0	;
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+#AdminViewAll:hover, #returnAdminButton:hover
+{
+    background-color: 	#a3cbf5;
+}
+#AdminViewAll:active, #returnAdminButton:active
+{
+    background-color: #74aeed;
+}
+.head, .head:hover
+{
+    background-color: #74aeed;
+}
+.odd
+{
+    background-color:	#ecf5ff;
+
+}
+.errorMsg
+{
+    font-weight: bold;
+    font-size:13px;
+    color:red;
+    
+}
+
+#AdminViewAll a, #returnAdminButton a
+{
+    text-decoration: none;
+    color:black;
+}
