@@ -49,15 +49,17 @@
                         }
                             $name = $club['name'];
                             $email = $club['email'];
+                            $id = $club['ClubID'];
+                            $members = $mysqli->query("SELECT * from UserClubs WHERE ClubID = $id");
+                            $numMem = mysqli_num_rows($members);                   
                             $row .= "<td>$name</td>";
                             $row .= "<td>$email</td>";
-                            $row .= "<td>300</td>";
+                            $row .= "<td>$numMem</td>";
                             $row .= "<td>20</td>";
                             $row .= "<td>5</td>";
                         $row .= "</tr>";
                         echo($row);
                         $i += 1; 
-
                     }
                     
                 } 
