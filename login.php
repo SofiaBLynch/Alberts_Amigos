@@ -1,5 +1,7 @@
+#!/usr/local/bin/php
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,76 +11,82 @@
   <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
-	body {
-	font-family: 'Rowdies', sans-serif;
-	}
-	h2 {
-	  color: #002C88;
-	  font-weight: 400;
-	  font-szie: 28px;
-	  margin-bottom: 20px;
-	}
-	.btn-custom-1 {
-      background-color: #006A35; /* Custom color for buttons */
+    body {
+      font-family: 'Rowdies', sans-serif;
+    }
+
+    h2 {
+      color: #002C88;
+      font-weight: 400;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .btn-custom-1 {
+      background-color: #006A35;
       border-color: #002C88;
-      width: 100%; /* Equal width for buttons in a row */
-	  font-size: 16px;
+      width: 100%;
+      font-size: 16px;
     }
 
     .btn-custom-1:hover {
-      background-color: #006A35; /* Custom color for buttons on hover */
+      background-color: #006A35;
       border-color: #002C88;
     }
-	.btn-custom-2 {
-      background-color: #FA440E; /* Custom color for buttons */
+
+    .btn-custom-2 {
+      background-color: #FA440E;
       border-color: #002C88;
       width: 100%;
-	  font-size: 16px;
+      font-size: 16px;
     }
 
     .btn-custom-2:hover {
-      background-color: #FA440E; /* Custom color for buttons on hover */
+      background-color: #FA440E;
       border-color: #002C88;
     }
-	.rowdies-light {
-	font-family: "Rowdies", sans-serif;
-	font-weight: 300;
-	font-style: normal;
-	}
 
-	.rowdies-regular {
-	font-family: "Rowdies", sans-serif;
-	font-weight: 400;
-	font-style: normal;
-	}
+    .rowdies-light {
+      font-family: "Rowdies", sans-serif;
+      font-weight: 300;
+      font-style: normal;
+    }
 
-	.rowdies-bold {
-  font-family: "Rowdies", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-	}
+    .rowdies-regular {
+      font-family: "Rowdies", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
 
-	.button-container {
+    .rowdies-bold {
+      font-family: "Rowdies", sans-serif;
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    .button-container {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px; /* Add margin for spacing */
+      margin-top: 20px;
     }
-	.login-box {
+
+    .login-box {
       margin-top: 100px;
-	  width: 400px;
-      background-color: #d3d3d3; /* White background color */
-      border: 2px solid #002C88; /* Blue border */
-      border-radius: 8px; 
-      padding: 10px; /* Add padding inside the box */
+      width: 400px;
+      background-color: #d3d3d3;
+      border: 2px solid #002C88;
+      border-radius: 8px;
+      padding: 10px;
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 login-box">
         <h2 class="text-center mb-4">Login to GatorLink</h2>
-        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <form method="POST">
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
@@ -89,7 +97,7 @@
           </div>
           <div class="button-container">
             <button type="submit" name="login" class="btn btn-custom-1">Login</button>
-            <button type="button" class="btn btn-custom-2">Sign Up</button>
+            <a href="signup.php" class="btn btn-custom-2">Sign Up</a>
           </div>
         </form>
       </div>
@@ -102,33 +110,36 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <?php
+  session_start();
   // PHP code for handling form submission and database connection
   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
     // Your database connection code (replace placeholders with actual values)
-    $servername = "localhost";
-    $username = "username";
-    $password_db = "password";
-    $dbname = "database_name";
+    $servername = 'mysql.cise.ufl.edu';
+    $username = 'chelseanguyen';
+    $password_db = 'Caa20210408';
+    $dbname = 'AlbertsAmigos';
 
-    // Create connection
     $conn = new mysqli($servername, $username, $password_db, $dbname);
 
-    // Check connection
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }
 
     // SQL query to check if user exists
-    $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+    $sql = "SELECT * FROM Users WHERE email='$email' AND passwordhash='$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
       // User authenticated successfully
-      echo "<script>alert('Login successful');</script>";
-      // Redirect to another page or perform other actions
+      $row = $result->fetch_assoc();
+      
+        $_SESSION['UFID'] = $row['UFID'];
+        header("Location: hub_page.php");
+        exit();
+      
     } else {
       echo "<script>alert('Invalid credentials');</script>";
     }
@@ -137,4 +148,5 @@
   }
   ?>
 </body>
+
 </html>

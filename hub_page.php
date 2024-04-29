@@ -26,7 +26,7 @@
         <a href="./member_view.html">My Clubs</a>
         <a href="./admin.php">Admin</a>
         <a href="#"><label for="club-search">Search for a club:</label>
-            
+
             <input type="text" id="club-search" name="club-search">
         </a>
         <a href="#">Engagement</a>
@@ -34,41 +34,49 @@
 
     <div class="button-container">
         <?php
+        session_start(); // Ensure session is started before any output
         $mysqli = new mysqli("mysql.cise.ufl.edu", "chelseanguyen", "Caa20210408", "AlbertsAmigos");
+
         // Check connection
-        
         if ($mysqli->connect_errno) {
             echo "Failed to connect to MySQL: " . $mysqli->connect_error;
             exit();
         }
 
-        // Replace 'specific_ufid' with the actual UFID you want to filter by
-        $specific_ufid = '11111111';
-        $result = $mysqli->query("SELECT c.* FROM UserClubs uc JOIN Clubs c ON uc.ClubID = c.ClubID WHERE uc.UFID = '" . $specific_ufid . "'");
+        if (!isset($_SESSION['UFID'])) {
+            // If UFID isn't set, redirect to the login page
+            header("Location: login.php");
+            exit();
+        }
 
-        $i = 0;
-        if ($result->num_rows > 0) {
-            while ($club = $result->fetch_assoc()) {
-                if ($i % 2 == 1) {
-                    $row = "<div class='button'>";
-                } else {
-                    $row = "<div class='button'>";
+        $specific_ufid = $_SESSION['UFID'];
+
+        // Query to get the clubs based on UFID
+        $query = "SELECT c.* FROM UserClubs uc JOIN Clubs c ON uc.ClubID = c.ClubID WHERE uc.UFID = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param("s", $specific_ufid); // Bind parameter
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                while ($club = $result->fetch_assoc()) {
+                    echo "<div class='button'>";
+                    echo "<h3>" . htmlspecialchars($club['name']) . "</h3>";
+                    echo "<p>" . htmlspecialchars($club['email']) . "</p>";
+                    echo "<button type='button' class='btn btn-primary'>View</button>";
+                    echo "</div>";
                 }
-
-                $name = $club['name'];
-                $email = $club['email'];
-                $row .= "<h3>" . htmlspecialchars($name) . "</h3>";
-                $row .= "<p>" . htmlspecialchars($email) . "</p>";
-                $row .= "<button type='button' class='btn btn-primary'>View</button>";
-                $row .= "</div>";
-                echo ($row);
-                $i += 1;
+            } else {
+                echo "<p>No clubs found.</p>";
             }
+            $stmt->close();
+        } else {
+            echo "Failed to prepare the SQL statement.";
         }
 
         $mysqli->close();
-
         ?>
+
 
     </div>
 
@@ -77,7 +85,7 @@
             $('#club-search').autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: 'hub_page.php', 
+                        url: 'hub_page.php',
                         dataType: "json",
                         data: {
                             term: request.term
