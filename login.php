@@ -23,26 +23,25 @@
     }
 
     .btn-custom-1 {
-      background-color: #006A35;
+    background-color: #74aeed; 
       border-color: #002C88;
       width: 100%;
-      font-size: 16px;
+	  font-size: 16px;
     }
 
     .btn-custom-1:hover {
-      background-color: #006A35;
+      background-color: #a3cbf5; 
       border-color: #002C88;
     }
-
-    .btn-custom-2 {
-      background-color: #FA440E;
+	.btn-custom-2 {
+      background-color: #74aeed; 
       border-color: #002C88;
       width: 100%;
-      font-size: 16px;
+	  font-size: 16px;
     }
 
     .btn-custom-2:hover {
-      background-color: #FA440E;
+      background-color: #a3cbf5; 
       border-color: #002C88;
     }
 
@@ -99,7 +98,6 @@
           <div class="button-container">
             <button type="submit" name="login" class="btn btn-custom-1">Login</button>
             <a href="signup.php" class="btn btn-custom-2">Sign Up</a>
-            <a href="signup.php" class="btn btn-custom-2">Sign Up</a>
           </div>
         </form>
       </div>
@@ -145,7 +143,7 @@
   
       // Verify the password against the hash
       if (password_verify($password, $hashedPassword)) {
-        $_SESSION['user_id'] = $row['UFID'];  // Store user ID in session
+        $_SESSION['UFID'] = $row['UFID'];  // Store user ID in session
         header("Location: hub_page.php");   // Redirect to the hub page
         exit();
       } else {
