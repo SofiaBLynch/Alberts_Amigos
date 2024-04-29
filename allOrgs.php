@@ -51,12 +51,20 @@
                             $email = $club['email'];
                             $id = $club['ClubID'];
                             $members = $mysqli->query("SELECT * from UserClubs WHERE ClubID = $id");
-                            $numMem = mysqli_num_rows($members);                   
+                            $numMem = mysqli_num_rows($members);    
+                            $attendance = $mysqli->query("SELECT * FROM EventAttendees WHERE ClubID= $id");
+                            $numAtt = mysqli_num_rows($attendance);    
+                            if($numMem == 0)
+                            {
+                                $avg = 0;
+                            } else {
+                                $avg = $numAtt/$numMem;
+                            }
                             $row .= "<td>$name</td>";
                             $row .= "<td>$email</td>";
                             $row .= "<td>$numMem</td>";
-                            $row .= "<td>20</td>";
-                            $row .= "<td>5</td>";
+                            $row .= "<td>$numAtt</td>";
+                            $row .= "<td>$avg</td>";
                         $row .= "</tr>";
                         echo($row);
                         $i += 1; 
