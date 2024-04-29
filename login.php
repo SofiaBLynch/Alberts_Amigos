@@ -117,35 +117,44 @@
   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-
-    // Your database connection code (replace placeholders with actual values)
+  
+    // Your database connection code
     $servername = 'mysql.cise.ufl.edu';
     $username = 'chelseanguyen';
     $password_db = 'Caa20210408';
     $dbname = 'AlbertsAmigos';
-
+  
     $conn = new mysqli($servername, $username, $password_db, $dbname);
-
+  
+    // Check connection
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }
-
-    // SQL query to check if user exists
-    $sql = "SELECT * FROM Users WHERE email='$email' AND passwordhash='$password'";
-    $sql = "SELECT * FROM Users WHERE email='$email' AND passwordhash='$password'";
-    $result = $conn->query($sql);
-
+  
+    // SQL query to get the hashed password from the database
+    $sql = "SELECT UFID, passwordhash FROM Users WHERE email=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+  
     if ($result->num_rows > 0) {
       // User authenticated successfully
       $row = $result->fetch_assoc();
-      
-        $_SESSION['UFID'] = $row['UFID'];
-        header("Location: hub_page.php");
+      $hashedPassword = $row['passwordhash'];  // get the hashed password from the database
+  
+      // Verify the password against the hash
+      if (password_verify($password, $hashedPassword)) {
+        $_SESSION['user_id'] = $row['UFID'];  // Store user ID in session
+        header("Location: hub_page.php");   // Redirect to the hub page
         exit();
-      
+      } else {
+        echo "<script>alert('Invalid credentials');</script>";
+      }
     } else {
       echo "<script>alert('Invalid credentials');</script>";
     }
+    $stmt->close();
     $conn->close();
   }
   ?>
