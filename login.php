@@ -1,3 +1,5 @@
+#!/usr/local/bin/php
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,29 +17,29 @@
 	h2 {
 	  color: #002C88;
 	  font-weight: 400;
-	  font-szie: 28px;
+	  font-size: 28px;
 	  margin-bottom: 20px;
 	}
 	.btn-custom-1 {
-      background-color: #006A35; /* Custom color for buttons */
+    background-color: #74aeed; 
       border-color: #002C88;
-      width: 100%; /* Equal width for buttons in a row */
+      width: 100%;
 	  font-size: 16px;
     }
 
     .btn-custom-1:hover {
-      background-color: #006A35; /* Custom color for buttons on hover */
+      background-color: #a3cbf5; 
       border-color: #002C88;
     }
 	.btn-custom-2 {
-      background-color: #FA440E; /* Custom color for buttons */
+      background-color: #74aeed; 
       border-color: #002C88;
       width: 100%;
 	  font-size: 16px;
     }
 
     .btn-custom-2:hover {
-      background-color: #FA440E; /* Custom color for buttons on hover */
+      background-color: #a3cbf5; 
       border-color: #002C88;
     }
 	.rowdies-light {
@@ -61,15 +63,15 @@
 	.button-container {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px; /* Add margin for spacing */
+      margin-top: 20px; 
     }
 	.login-box {
       margin-top: 100px;
 	  width: 400px;
-      background-color: #d3d3d3; /* White background color */
-      border: 2px solid #002C88; /* Blue border */
+      background-color: #d3d3d3; 
+      border: 2px solid #002C88; 
       border-radius: 8px; 
-      padding: 10px; /* Add padding inside the box */
+      padding: 10px; 
     }
   </style>
 </head>
@@ -78,10 +80,10 @@
     <div class="row justify-content-center">
       <div class="col-md-6 login-box">
         <h2 class="text-center mb-4">Login to GatorLink</h2>
-        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <form method="POST">
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
@@ -89,7 +91,7 @@
           </div>
           <div class="button-container">
             <button type="submit" name="login" class="btn btn-custom-1">Login</button>
-            <button type="button" class="btn btn-custom-2">Sign Up</button>
+            <a href="signup.php" class="btn btn-custom-2">Sign Up</a>
           </div>
         </form>
       </div>
@@ -108,31 +110,32 @@
     $password = $_POST['password'];
 
     // Your database connection code (replace placeholders with actual values)
-    $servername = "localhost";
-    $username = "username";
-    $password_db = "password";
-    $dbname = "database_name";
+    $servername = 'mysql.cise.ufl.edu';
+    $username = 'a.olson';
+    $password_db = 'CHLK25y2687';
+    $dbname = 'AlbertsAmigos';
 
-    // Create connection
     $conn = new mysqli($servername, $username, $password_db, $dbname);
 
-    // Check connection
+    $sql = "SELECT UFID FROM Users WHERE email='$email' AND passwordhash='$password'"; 
+    $result = $conn->query($sql);
+
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }
 
     // SQL query to check if user exists
-    $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+    $sql = "SELECT * FROM Users WHERE email='$email' AND passwordhash='$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-      // User authenticated successfully
-      echo "<script>alert('Login successful');</script>";
-      // Redirect to another page or perform other actions
+      $row = $result->fetch_assoc();
+      $_SESSION['user_id'] = $row['id'];  // Store user ID in session
+      header("Location: hub_page.php");   // Redirect to the hub page
+      exit();
     } else {
       echo "<script>alert('Invalid credentials');</script>";
     }
-
     $conn->close();
   }
   ?>
