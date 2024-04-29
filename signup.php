@@ -1,4 +1,5 @@
 #!/usr/local/bin/php
+#!/usr/local/bin/php
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,69 +11,69 @@
   <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
-	body {
-	font-family: 'Rowdies', sans-serif;
-	}
-	h2 {
-	  color: #002C88;
-	  font-weight: 400;
-	  font-szie: 28px;
-	  margin-bottom: 20px;
-	}
-	.btn-custom-1 {
+  body {
+  font-family: 'Rowdies', sans-serif;
+  }
+  h2 {
+    color: #002C88;
+    font-weight: 400;
+    font-szie: 28px;
+    margin-bottom: 20px;
+  }
+  .btn-custom-1 {
       background-color: #006A35; /* Custom color for buttons */
       border-color: #002C88;
       width: 100%; /* Equal width for buttons in a row */
-	  font-size: 16px;
+    font-size: 16px;
     }
 
     .btn-custom-1:hover {
       background-color: #006A35; /* Custom color for buttons on hover */
       border-color: #002C88;
     }
-	.btn-custom-2 {
-      background-color: #74aeed; /* Custom color for buttons */
+  .btn-custom-2 {
+      background-color: #FA440E; /* Custom color for buttons */
       border-color: #002C88;
       width: 100%;
-	  font-size: 16px;
+    font-size: 16px;
     }
 
     .btn-custom-2:hover {
       background-color: #a3cbf5; /* Custom color for buttons on hover */
       border-color: #002C88;
     }
-	.rowdies-light {
-	font-family: "Rowdies", sans-serif;
-	font-weight: 300;
-	font-style: normal;
-	}
+  .rowdies-light {
+  font-family: "Rowdies", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  }
 
-	.rowdies-regular {
-	font-family: "Rowdies", sans-serif;
-	font-weight: 400;
-	font-style: normal;
-	}
+  .rowdies-regular {
+  font-family: "Rowdies", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  }
 
-	.rowdies-bold {
+  .rowdies-bold {
   font-family: "Rowdies", sans-serif;
   font-weight: 700;
   font-style: normal;
-	}
+  }
 
-	.button-container {
+  .button-container {
       display: flex;
       justify-content: space-between;
       margin-top: 20px; /* Add margin for spacing */
     }
-	.login-box {
+  .login-box {
       margin-top: 100px;
-	  width: 400px;
+    width: 400px;
       background-color: #d3d3d3; /* White background color */
       border: 2px solid #002C88; /* Blue border */
       border-radius: 8px; 
       padding: 10px; /* Add padding inside the box */
     }
-	.validation-message {
+  .validation-message {
       color: red;
       font-size: 14px;
       margin-top: 5px;
@@ -85,19 +86,19 @@
       var password2 = document.getElementById('password2').value;
       var nameData = document.getElementById('name').value;
       var UFID = document.getElementById('ufid').value;
-	  
+    
       var emailError = document.getElementById('emailError');
       var passwordError = document.getElementById('passwordError');
       var nameError = document.getElementById('nameError');
-	  var ufidError = document.getElementById('ufidError');
-	  
+    var ufidError = document.getElementById('ufidError');
+    
       var isValid = true;
 
       emailError.textContent = ''; // Clear previous error message
       passwordError.textContent = ''; // Clear previous error message
-	  nameError.textContent = '';
-	  ufidError.textContent = '';
-	  
+    nameError.textContent = '';
+    ufidError.textContent = '';
+    
       // Email validation using regular expression
       var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
@@ -116,16 +117,16 @@
         passwordError.textContent = 'Password must be at least 8 characters long.';
         isValid = false;
       }
-	  
-	  if (nameData.length < 1) {
-		  nameError.textContent = "Please enter a name";
-		  isValid = false;
-	  }
-	  
-	  if (UFID.length != 8) {
-		  ufidError.textContent = "Please enter your valid UFID";
-		  isValid = false;
-	  }
+    
+    if (nameData.length < 1) {
+      nameError.textContent = "Please enter a name";
+      isValid = false;
+    }
+    
+    if (UFID.length != 8) {
+      ufidError.textContent = "Please enter your valid UFID";
+      isValid = false;
+    }
 
       // You can add more password strength criteria checks here
 
@@ -140,34 +141,34 @@
       <div class="col-md-6 login-box">
         <h2 class="text-center mb-4">Signup for GatorLink</h2>
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="Enter full name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>">
-    <span id="nameError" class="validation-message"></span>
-  </div>
-  <div class="form-group">
-    <label for="ufid">UFID</label>
-    <input type="text" class="form-control" id="ufid" name="ufid" placeholder="Enter UFID" value="<?php echo isset($_POST['ufid']) ? htmlspecialchars($_POST['ufid']) : ''; ?>">
-    <span id="ufidError" class="validation-message"></span>
-  </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
-    <span id="emailError" class="validation-message"></span>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password1" name="password" placeholder="Enter password">
-  </div>
-  <div class="form-group">
-    <label for="password">Re-enter Password</label>
-    <input type="password" class="form-control" id="password2" name="password_confirmation" placeholder="Enter password">
-    <span id="passwordError" class="validation-message"></span>
-  </div>
-  <div class="button-container">
-    <button type="submit" class="btn btn-custom-2">Sign Up</button>
-  </div>
-</form>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="name" class="form-control" id="name" name="name" placeholder="Enter full name">
+            <span id="nameError" class="validation-message"></span>
+          </div>
+      <div class="form-group">
+            <label for="name">UFID</label>
+            <input type="name" class="form-control" id="ufid" name="ufid" placeholder="Enter UFID">
+            <span id="ufidError" class="validation-message"></span>
+          </div>
+      <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            <span id="emailError" class="validation-message"></span> <!-- Validation message for email -->
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password1" name="password" placeholder="Enter password">
+          </div>
+          <div class="form-group">
+            <label for="password">Re-enter Password</label>
+            <input type="password" class="form-control" id="password2" name="password" placeholder="Enter password">
+            <span id="passwordError" class="validation-message"></span> <!-- Validation message for password -->
+          </div>
+          <div class="button-container">
+            <button type="submit" class="btn btn-custom-2">Sign Up</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -182,8 +183,8 @@
 <?php
 // Database connection setup (use your actual database credentials)
 $host = 'mysql.cise.ufl.edu';
-$username = 'a.olson';
-$password = 'CHLK25y2687';
+$username = 'chelseanguyen';
+$password = 'Caa20210408';
 $database = 'AlbertsAmigos';
 
 $conn = mysqli_connect($host, $username, $password, $database);
@@ -196,8 +197,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $UFID = mysqli_real_escape_string($conn, $_POST['ufid']);
     $fullname = mysqli_real_escape_string($conn, $_POST['name']);
+
+  $UFID = mysqli_real_escape_string($conn, $_POST['ufid']);
+    $fullname = mysqli_real_escape_string($conn, $_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $isAdmin = 0;
+
+    $sql = "INSERT INTO Users (UFID, fullname, email, passwordhash, isAdmin) VALUES ('$UFID', '$fullname', '$email', '$password', '$isAdmin')";
     $isAdmin = 0;
 
     $sql = "INSERT INTO Users (UFID, fullname, email, passwordhash, isAdmin) VALUES ('$UFID', '$fullname', '$email', '$password', '$isAdmin')";
@@ -207,7 +214,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } 
     else {
     echo 'Error: ' . mysqli_error($conn);
+    if (mysqli_query($conn, $sql)){
+    echo '<script>alert("Signup successful!"); window.location.href = "login.php";</script>';
+    } 
+    else {
+    echo 'Error: ' . mysqli_error($conn);
     }
+  
+
+    mysqli_close($conn); 
   
 
     mysqli_close($conn); 
