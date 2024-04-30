@@ -23,13 +23,11 @@
     <h1>GatorMeet</h1>
 
     <div class="navbar">
-        <a href="./member_view.html">My Clubs</a>
+        <a href="./hub_page.php">My Clubs</a>
         <a href="./admin.php">Admin</a>
-        <a href="#"><label for="club-search">Search for a club:</label>
-
-            <input type="text" id="club-search" name="club-search">
-        </a>
+        <a href="./search_page.php">Join New Club</a>
         <a href="#">Engagement</a>
+        <a href="logout.php" class="btn btn-danger">Logout</a>
     </div>
 
     <div class="button-container">
