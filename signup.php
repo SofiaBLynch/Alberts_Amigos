@@ -138,7 +138,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 login-box">
-        <h2 class="text-center mb-4">Signup for GatorLink</h2>
+        <h2 class="text-center mb-4">Signup for GatorMeet</h2>
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">
           <div class="form-group">
             <label for="name">Name</label>
