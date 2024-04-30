@@ -24,6 +24,7 @@
     <a href="./admin.php">Admin</a>
     <a href="./search_page.php">Join New Club</a>
     <a href="#">Engagement</a>
+    <a href="logout.php" class="btn btn-danger">Logout</a>
 </div>
 <div class="container">
     <br>
