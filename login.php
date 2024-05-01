@@ -130,7 +130,7 @@
     }
   
     // SQL query to get the hashed password from the database
-    $sql = "SELECT UFID, passwordhash FROM Users WHERE email=?";
+    $sql = "SELECT isAdmin, UFID, passwordhash FROM Users WHERE email=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -143,8 +143,9 @@
   
       // Verify the password against the hash
       if (password_verify($password, $hashedPassword)) {
-        $_SESSION['UFID'] = $row['UFID'];  // Store user ID in session
-        header("Location: hub_page.php");   // Redirect to the hub page
+        $_SESSION['UFID'] = $row['UFID'];  
+        $_SESSION['isAdmin'] = $row['isAdmin'];
+        header("Location: hub_page.php");
         exit();
       } else {
         echo "<script>alert('Invalid credentials');</script>";
