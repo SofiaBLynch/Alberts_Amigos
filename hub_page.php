@@ -55,13 +55,13 @@
             $stmt->bind_param("s", $specific_ufid); // Bind parameter
             $stmt->execute();
             $result = $stmt->get_result();
-
+            
             if ($result->num_rows > 0) {
                 while ($club = $result->fetch_assoc()) {
                     echo "<div class='button'>";
                     echo "<h3>" . htmlspecialchars($club['name']) . "</h3>";
                     echo "<p>" . htmlspecialchars($club['email']) . "</p>";
-                    echo "<button type='button' class='btn btn-primary'>View</button>";
+                    echo "<a href='member_view.php?session=" . urlencode(session_id()) . "&club=" . urlencode($club['ClubID']) . "' class='btn btn-primary'>View</a>";
                     echo "</div>";
                 }
             } else {
