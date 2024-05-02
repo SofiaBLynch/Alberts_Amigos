@@ -170,7 +170,30 @@
                 return false;
             }
         }
-    
+        function modifyAdmin()
+        {
+            document.getElementById("modifyAdminEmailError").innerHTML = "";
+            document.getElementById("modifyAdminDropdownError").innerHTML = "";
+            var ready = true;
+            var email =document.getElementById("modifyAdminEmailDropdown").value;
+            if(email=== "select")
+            {
+                document.getElementById("modifyAdminEmailError").innerHTML = "*Required: Select an email";
+                ready = false; 
+            }
+            var access = document.getElementById("modifyAdminDropdown").value;
+            if(access === "select")
+            {
+                document.getElementById("modifyAdminDropdownError").innerHTML = "*Required: Input Yes or No for administrators access";
+                ready = false;
+            }
+            if(ready)
+            {
+                return true;
+            } else {
+                return false;
+            }
+        }
         function redirectToAllOrgs()
         {
             window.location.href = "allOrgs.php";
@@ -188,6 +211,7 @@
             <a href="logout.php" class="btn btn-danger">Logout</a>
         </div>
     </div>
+
     <?php
         $mysqli = new mysqli("mysql.cise.ufl.edu", "sofia.lynch", "Ramiro2012", "AlbertsAmigos");
         // Check connection
@@ -234,14 +258,26 @@
             $cmd = "DELETE from Clubs WHERE ClubId=$orgName";
             $mysqli->query($cmd);
         }
+        if(array_key_exists("modifyAdminAccessSubmit", $_POST))
+        {
+            $email = $_POST["modifyAdminEmailDropdown"];
+            $access = $_POST["modifyAdminDropdown"];
+            if($access == "yes")
+            {
+                $cmd = "UPDATE Users SET isAdmin=1 WHERE UFID='$email'";
+            } else {
+                $cmd = "UPDATE Users SET isAdmin=0 WHERE UFID='$email'";
+            }
+            echo($cmd);
+            echo($mysqli->query($cmd));
+        }
     ?>
+    
     <h1 style="color:black"> Admin </h1>
     <div class="adminForms">
         <div class = "form" id="addOrganizationForm">
             <h3> Add Organization </h3>
-            <p class="errorMsg" id="addOrgSubmitError">
-            
-            </p>
+            <p class="errorMsg" id="addOrgSubmitError"></p>
             <form class="adminInputForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return checkAddOrg();">
                 <p class="errorMsg" id="addOrganizationNameError"></p>
                 <label for="addOrganizationName">Name of Organization:</label>
@@ -255,6 +291,7 @@
                 <input type="submit" class="submitAdmin" id="addOrganizationSubmit" name = "addOrganizationSubmit" value="Submit">
             </form>
         </div>
+
         <div class = "form" id="addPresidentForm">
             <h3> Add President </h3>
             <form class="adminInputForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return checkAddPres();">
@@ -291,6 +328,7 @@
             </form>
                     
         </div>
+
         <div class="form" id="removePresidentForm">
             <h3> Remove President </h3>
             <form class="adminInputForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return checkRemovePres();">                
@@ -400,9 +438,8 @@
                 <input type="submit" class="submitAdmin" id="changePresidentSubmit" name="changePresidentSubmit" value="Submit">
             </form>
         </div> 
-    </div>
-    
-    <div class = "form" id="deleteOrganizationForm">
+
+        <div class = "form" id="deleteOrganizationForm">
             <h3> Remove Organization </h3>
             <form class="adminInputForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return removeOrganization();">
                 <p class="errorMsg" id="removeOrganizationError"></p>            
@@ -464,6 +501,53 @@
                 <input type="submit" class="submitAdmin" id="removeOrganizationSubmit" name="removeOrganizationSubmit" value="Submit">
             </form>
         </div> 
+
+        <div class = "form" id="modifyAdministrationForm">
+            <h3> Modify Administration Access </h3>
+            <form class="adminInputForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return modifyAdmin();">
+                <p class="errorMsg" id="modifyAdminEmailError"></p>
+                <label for="modifyAdminEmailDropdown">Account Email:</label>
+                <select id="modifyAdminEmailDropdown" name="modifyAdminEmailDropdown">
+                    <option value="select">Select</option>
+                    <?php
+                        $mysqli = new mysqli("mysql.cise.ufl.edu", "sofia.lynch", "Ramiro2012", "AlbertsAmigos");
+                        // Check connection
+                        if ($mysqli -> connect_errno) {
+                            echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+                            exit();
+                        } 
+                
+                        $result = $mysqli->query("SELECT * from Users");
+                        
+                        if($result->num_rows > 0)
+                        {
+                            $options = "";
+                            
+                            while($row = $result->fetch_assoc())
+                            {
+                                $email = $row['email'];
+                                $id = $row['UFID'];
+                                $options .= "<option value='$id'>$email</option>";
+                            }
+                            echo($options);
+                        } 
+                    ?>
+                </select><br>
+                <p class="errorMsg" id="modifyAdminDropdownError"></p>
+                <label for="modifyAdminDropdown">Grant Administrative Access:</label>
+                <select id="modifyAdminDropdown" name="modifyAdminDropdown">
+                    <option value="select">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <input type="submit" class="submitAdmin" id="modifyAdminAccessSubmit" name="modifyAdminAccessSubmit" value="Submit">
+            </form>
+        </div> 
+    </div>
+
+
+    
+
     <br>
     <div class="orgData" style="overflow-x:auto;">
         <h3>On-Campus Involvement</h3>
