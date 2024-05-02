@@ -115,7 +115,7 @@
     }
   
     // SQL query to get the hashed password from the database
-    $sql = "SELECT UFID, passwordhash FROM Users WHERE email=?";
+    $sql = "SELECT UFID, isAdmin, passwordhash FROM Users WHERE email=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
