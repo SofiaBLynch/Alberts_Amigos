@@ -268,8 +268,7 @@
             } else {
                 $cmd = "UPDATE Users SET isAdmin=0 WHERE UFID='$email'";
             }
-            echo($cmd);
-            echo($mysqli->query($cmd));
+            $mysqli->query($cmd);
         }
     ?>
     
