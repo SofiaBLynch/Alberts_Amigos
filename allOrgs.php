@@ -1,11 +1,17 @@
 #!/usr/local/bin/php
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <link rel="stylesheet" href="./admin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin All Organizations</title>
-    <html lang="en">
-
+    
+    <script>
+        function redirectToAdmin()
+        {
+            window.location.href="admin.php"
+        }
+    </script>
 </head>
 <body>
     <h1>GatorMeet</h1>
@@ -76,7 +82,7 @@
         </table>
         <br> 
         <div id="orgDataButton">
-            <button id="returnAdminButton"><a href="./admin.php">Return to Admin</a></button>
+            <button id="returnAdminButton" onclick="redirectToAdmin()">Return to Admin</button>
         </div>
     </div>
 </body>

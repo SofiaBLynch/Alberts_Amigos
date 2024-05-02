@@ -1,11 +1,11 @@
 #!/usr/local/bin/php
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <link rel="stylesheet" href="./admin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Admin</title>
-    <html lang="en">
     <script>
         function checkAddOrg()
         {
@@ -170,6 +170,11 @@
                 return false;
             }
         }
+    
+        function redirectToAllOrgs()
+        {
+            window.location.href = "allOrgs.php";
+        }
     </script>
 </head>
 <body>
@@ -240,14 +245,14 @@
             <form class="adminInputForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return checkAddOrg();">
                 <p class="errorMsg" id="addOrganizationNameError"></p>
                 <label for="addOrganizationName">Name of Organization:</label>
-                <input type="text" id="addOrganizationName" name="addOrganizationName"autofocus placeholder="Women in Computer Science and Engineering"><br>
+                <input type="text" id="addOrganizationName" name="addOrganizationName" placeholder="Women in Computer Science and Engineering"><br>
                 <p class="errorMsg" id="addOrganizationAbbreviationError"></p>
                 <label for="addOrganizationAbbreviation">Abbreviation of Organization: (optional)</label>
-                <input type="text" id="addOrganizationAbbreviation"  name="addOrganizationAbbreviation" autofocus placeholder="WiCSE"><br>
+                <input type="text" id="addOrganizationAbbreviation"  name="addOrganizationAbbreviation" placeholder="WiCSE"><br>
                 <p class="errorMsg" id="addOrganizationEmailError"></p>
                 <label for="addOrganizationEmail">President's Email</label>
-                <input type="text" id="addOrganizationEmail" name="addOrganizationEmail"autofocus placeholder="albert@ufl.edu"><br>
-                <input type="submit" class="submitAdmin" id="addOrganizationSubmit" name = "addOrganizationSubmit" value="Submit"></input>
+                <input type="text" id="addOrganizationEmail" name="addOrganizationEmail" placeholder="albert@ufl.edu"><br>
+                <input type="submit" class="submitAdmin" id="addOrganizationSubmit" name = "addOrganizationSubmit" value="Submit">
             </form>
         </div>
         <div class = "form" id="addPresidentForm">
@@ -281,8 +286,8 @@
                 </select><br>
                 <p class="errorMsg" id="addPresidentEmailError"></p>
                 <label for="addPresidentEmail">President's Email</label>
-                <input type="text" id="addPresidentEmail" name="addPresidentEmail"autofocus placeholder="albert@ufl.edu"><br>
-                <input type="submit" class="submitAdmin" id="addPresidentSubmit" name="addPresidentSubmit" value="Submit"></input>
+                <input type="text" id="addPresidentEmail" name="addPresidentEmail" placeholder="albert@ufl.edu"><br>
+                <input type="submit" class="submitAdmin" id="addPresidentSubmit" name="addPresidentSubmit" value="Submit">
             </form>
                     
         </div>
@@ -351,8 +356,8 @@
                 </select><br>    
                 <p class="errorMsg" id="removePresidentEmailError"></p>            
                 <label for="removePresidentEmail">President's Email</label>
-                <input type="text" id="removePresidentEmail" name="removePresidentEmail" autofocus placeholder="albert@ufl.edu"><br>
-                <input type="submit" class="submitAdmin" id="removePresidentSubmit" name="removePresidentSubmit" value="Submit"></input>
+                <input type="text" id="removePresidentEmail" name="removePresidentEmail" placeholder="albert@ufl.edu"><br>
+                <input type="submit" class="submitAdmin" id="removePresidentSubmit" name="removePresidentSubmit" value="Submit">
             </form>
         </div> 
     
@@ -388,11 +393,11 @@
                 </select><br>
                 <p class="errorMsg" id="changePresidentEmailErrorOld"></p>            
                 <label for="changePresidentOldEmail">Old President's Email</label>
-                <input type="text" id="changePresidentOldEmail" name="changePresidentOldEmail" autofocus placeholder="albert@ufl.edu"><br>
+                <input type="text" id="changePresidentOldEmail" name="changePresidentOldEmail" placeholder="albert@ufl.edu"><br>
                 <p class="errorMsg" id="changePresidentEmailErrorNew"></p>            
                 <label for="changePresidentNewEmail">New President's Email</label>
-                <input type="text" id="changePresidentNewEmail" name="changePresidentNewEmail" autofocus placeholder="newAlbert@ufl.edu"><br>
-                <input type="submit" class="submitAdmin" id="changePresidentSubmit" name="changePresidentSubmit" value="Submit"></input>
+                <input type="text" id="changePresidentNewEmail" name="changePresidentNewEmail" placeholder="newAlbert@ufl.edu"><br>
+                <input type="submit" class="submitAdmin" id="changePresidentSubmit" name="changePresidentSubmit" value="Submit">
             </form>
         </div> 
     </div>
@@ -456,10 +461,9 @@
                         } 
                     ?>
                 </select><br>
-                <input type="submit" class="submitAdmin" id="removeOrganizationSubmit" name="removeOrganizationSubmit" value="Submit"></input>
+                <input type="submit" class="submitAdmin" id="removeOrganizationSubmit" name="removeOrganizationSubmit" value="Submit">
             </form>
         </div> 
-    </div>
     <br>
     <div class="orgData" style="overflow-x:auto;">
         <h3>On-Campus Involvement</h3>
@@ -526,7 +530,7 @@
         <br>
         
         <div id="orgDataButton">
-            <button id="AdminViewAll"><a href="./allOrgs.php">View All</a></button>
+            <button id="AdminViewAll" onclick="redirectToAllOrgs()">View All</button>
         </div>
         
     </div>
