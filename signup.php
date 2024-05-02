@@ -167,6 +167,7 @@
           <div class="button-container">
             <button type="submit" class="btn btn-custom-2">Sign Up</button>
           </div>
+          <a href="./login.php">Already have an account? Login </a>
         </form>
       </div>
     </div>
