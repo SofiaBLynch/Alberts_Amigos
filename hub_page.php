@@ -28,7 +28,8 @@
         <a href="./admin.php">Admin</a>
     <?php } ?>
     <a href="./search_page.php">Join a Club</a>
-    <a href="#">Engagement</a>
+    <a href="logout.php" class="btn btn-danger">Logout</a>
+
     </div>
     <script>
         $(document).ready(function () {
