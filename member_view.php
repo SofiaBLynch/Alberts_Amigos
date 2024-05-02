@@ -21,7 +21,7 @@
         <a href="./hub_page.php">My Clubs</a>
         <a href="./admin.php">Admin</a>
         <a href="./search_page.php">Join New Club</a>
-        <!-- <a href="#">Engagement</a> -->
+        <a href="#">Engagement</a>
         <a href="logout.php" class="btn btn-danger">Logout</a>
     </div>
 
@@ -114,7 +114,7 @@
         }
         echo "<h3>" . $clubAbbrv . "</h3>";
         echo "<div class='container'>";
-        echo "<div class='attendance-box'><h3>Attendance:</h3><input type='text' class='attendance-input' placeholder='GBM1'></input><input type='submit' class='attendance-submit'></div>";
+        echo "<div class='attendance-box'><h3>Attendance:</h3><form name='enter-code' action='event_code.php' method='post'><input type='text' class='attendance-input' name='code' placeholder='GBM1'><input type='hidden' name='clubId' value='".$club_id."'><input name='event' type='submit' class='attendance-submit'></form></div>";
         echo "<div class='points-box'><h3>Points:</h3><h4>" . $points . "</h4></div>";
         echo "<div class='events-box'><h3>Events Attended:</h3>";
         echo "<table class='events-table'><tr style='bold'><td>Event</td><td>Date</td><td>Points</td></tr>";
@@ -135,7 +135,14 @@
         echo "</table></div>";
         if ($isPres) {
             echo "<div class='make-event-box'><h3>Create Event</h3>";
-            echo "<form name='make-event-form' /*action='make_event.php'*/><input type='text' id='event-name-input' placeholder='event name'><input type='date' id='event-date-input'><input type='text' id='event-code-input' placeholder='CODE'><input type='hidden' name='clubId' value='".$clubId."><input type='submit'></form></div>";
+            echo "<form name='make-event-form' action='make_event.php' method='post'>
+            <input type='text' name='eventName' id='event-name-input' placeholder='event name'>
+            <input type='date' name='eventDate' id='event-date-input'>
+            <input type='text' name='eventCode' id='event-code-input' placeholder='CODE'>
+            <input type='hidden' name='clubId' value='".$club_id."'>
+            <input name='make_event' type='submit'>
+            </form>
+            </div>";
             echo "<div class='remove-member-box'><table class='remove-member-table'><h3>Remove Members</h3>";
             $st = $mysqli->prepare("SELECT * FROM UserClubs WHERE ClubID = ?");
             $st->bind_param("i", $club_id);
