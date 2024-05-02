@@ -71,11 +71,9 @@
     <?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) { ?>
         <a href="./admin.php">Admin</a>
     <?php } ?>
-    <a href="#"><label for="club-search">Search for a club:</label>
-        <input type="text" id="club-search" name="club-search">
-    </a>
+    <a href="./search_page.php">Join a Club</a>
     <a href="#">Engagement</a>
-</div>
+    </div>
     <script>
         $(document).ready(function () {
             $('#club-search').autocomplete({
