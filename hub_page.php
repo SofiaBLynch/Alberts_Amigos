@@ -1,37 +1,5 @@
 #!/usr/local/bin/php
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./hub_page.css">
-    <!-- for autocomplete search bar functionality -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <title>GatorMeet</title>
-</head>
-
-<body>
-
-    <h1>GatorMeet</h1>
-
-    <div class="navbar">
-        <a href="./hub_page.php">My Clubs</a>
-        <a href="./admin.php">Admin</a>
-        <a href="./search_page.php">Join New Club</a>
-        <a href="#">Engagement</a>
-        <a href="logout.php" class="btn btn-danger">Logout</a>
-    </div>
-
-    <div class="button-container">
-        <?php
+<?php
         session_start();
         $mysqli = new mysqli("mysql.cise.ufl.edu", "chelseanguyen", "Caa20210408", "AlbertsAmigos");
 
@@ -48,6 +16,7 @@
         }
 
         $specific_ufid = $_SESSION['UFID'];
+
 
         // Query to get the clubs based on UFID
         $query = "SELECT c.* FROM UserClubs uc JOIN Clubs c ON uc.ClubID = c.ClubID WHERE uc.UFID = ?";
@@ -74,10 +43,39 @@
 
         $mysqli->close();
         ?>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./hub_page.css">
+    <!-- for autocomplete search bar functionality -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    </div>
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>GatorMeet</title>
+</head>
 
+<body>
+
+    <h1>GatorMeet</h1>
+
+    <div class="navbar">
+    <a href="./member_view.html">My Clubs</a>
+    <?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) { ?>
+        <a href="./admin.php">Admin</a>
+    <?php } ?>
+    <a href="#"><label for="club-search">Search for a club:</label>
+        <input type="text" id="club-search" name="club-search">
+    </a>
+    <a href="#">Engagement</a>
+</div>
     <script>
         $(document).ready(function () {
             $('#club-search').autocomplete({
