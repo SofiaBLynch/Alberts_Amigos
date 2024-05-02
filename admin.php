@@ -694,10 +694,6 @@ $stmt->close();
       </div>
     </div>
   </div>
-  <div class="form-group">
-  <label for="filterName">Filter by Name:</label>
-  <input type="text" id="filterName" class="form-control" onkeyup="filterUsers()" placeholder="Enter name to filter">
-</div>
 <div class="row justify-content-center">
       <div class="col-md-6">
         <table>
