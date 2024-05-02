@@ -11,7 +11,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
   body {
-  font-family: 'Rowdies', sans-serif;
+  /* font-family: 'Rowdies', sans-serif; */
   }
   h2 {
     color: #002C88;
@@ -41,24 +41,7 @@
       background-color: #a3cbf5; 
       border-color: #002C88;
     }
-  .rowdies-light {
-  font-family: "Rowdies", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-  }
-
-  .rowdies-regular {
-  font-family: "Rowdies", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  }
-
-  .rowdies-bold {
-  font-family: "Rowdies", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  }
-
+  
   .button-container {
       display: flex;
       justify-content: space-between;

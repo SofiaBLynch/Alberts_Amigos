@@ -102,7 +102,7 @@ input[type="text"]:hover
 
 input[type="submit"]
 {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    /* font-family: Georgia, 'Times New Roman', Times, serif; */
     /* font-weight: bold; */
     background-color: 	#c1d8f0	;
 }
@@ -164,7 +164,7 @@ table th, table td{
 
 #AdminViewAll, #returnAdminButton
 {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    /* font-family: Georgia, 'Times New Roman', Times, serif; */
     padding: 4px;
     background-color: 	#c1d8f0	;
     padding: 5px;

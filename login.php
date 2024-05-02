@@ -8,11 +8,11 @@
   <title>Login Page</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet"> -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      font-family: 'Rowdies', sans-serif;
+      /* font-family: 'Rowdies', sans-serif; */
     }
 
     h2 {
@@ -23,44 +23,30 @@
     }
 
     .btn-custom-1 {
-    background-color: #74aeed; 
-      border-color: #002C88;
+      color: white;
+      border-radius: 10px;
+    background-color: #1155b4c6; 
+      /* border-color: #002C88; */
       width: 100%;
 	  font-size: 16px;
     }
 
     .btn-custom-1:hover {
       background-color: #a3cbf5; 
-      border-color: #002C88;
+      /* border-color: #002C88; */
     }
 	.btn-custom-2 {
-      background-color: #74aeed; 
-      border-color: #002C88;
+      color: white;
+    border-radius: 10px;
+      background-color: #1155b4c6; 
+      /* border-color: #002C88; */
       width: 100%;
 	  font-size: 16px;
     }
 
     .btn-custom-2:hover {
       background-color: #a3cbf5; 
-      border-color: #002C88;
-    }
-
-    .rowdies-light {
-      font-family: "Rowdies", sans-serif;
-      font-weight: 300;
-      font-style: normal;
-    }
-
-    .rowdies-regular {
-      font-family: "Rowdies", sans-serif;
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    .rowdies-bold {
-      font-family: "Rowdies", sans-serif;
-      font-weight: 700;
-      font-style: normal;
+      /* border-color: #002C88; */
     }
 
     .button-container {
@@ -72,8 +58,8 @@
     .login-box {
       margin-top: 100px;
       width: 400px;
-      background-color: #d3d3d3;
-      border: 2px solid #002C88;
+      background-color: #1155b440;
+      /* border: 2px solid #002C88; */
       border-radius: 8px;
       padding: 10px;
     }
@@ -84,7 +70,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 login-box">
-        <h2 class="text-center mb-4">Login to GatorLink</h2>
+        <h2 class="text-center mb-4">Login to GatorMeet</h2>
         <form method="POST">
         <form method="POST">
           <div class="form-group">
@@ -144,6 +130,7 @@
       // Verify the password against the hash
       if (password_verify($password, $hashedPassword)) {
         $_SESSION['UFID'] = $row['UFID'];  // Store user ID in session
+        $_SESSION['isAdmin'] = $row['isAdmin'];  // Store user role in session
         header("Location: hub_page.php");   // Redirect to the hub page
         exit();
       } else {

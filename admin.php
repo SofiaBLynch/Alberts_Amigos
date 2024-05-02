@@ -1,8 +1,12 @@
 #!/usr/local/bin/php
 
+
 <head>
     <link rel="stylesheet" href="./admin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Admin</title>
     <html lang="en">
     <script>
@@ -178,7 +182,7 @@
             <a href="./hub_page.php">My Clubs</a>
             <a href="./admin.php">Admin</a>
             <a href="./search_page.php">Join New Club</a>
-            <a href="#">Engagement</a>
+            <!-- <a href="#">Engagement</a> -->
             <a href="logout.php" class="btn btn-danger">Logout</a>
         </div>
     </div>
