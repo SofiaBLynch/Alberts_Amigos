@@ -51,16 +51,14 @@
                         } else {
                             $row = "<tr class= 'orgDataRow'>";
                         }
-                            $name = $club['name'];
-                            $email = $club['email'];
-                            $row .= "<td>$name</td>";
-                            $row .= "<td>$email</td>";
-                            $row .= "<td>300</td>";
-                            $row .= "<td>20</td>";
-                            $row .= "<td>5</td>";
+                        $row .= "<td>$name</td>";
+                        $row .= "<td>$email</td>";
+                        $row .= "<td>$numMem</td>";
+                        $row .= "<td>$numAtt</td>";
+                        $row .= "<td>$avg</td>";
                         $row .= "</tr>";
-                        echo($row);
-                        $i += 1; 
+                        echo ($row);
+                        $i += 1;
 
                     }
                     
