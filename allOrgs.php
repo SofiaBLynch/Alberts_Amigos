@@ -1,4 +1,6 @@
 #!/usr/local/bin/php
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <link rel="stylesheet" href="./admin.css">
@@ -7,8 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Admin All Organizations</title>
-    <html lang="en">
-
+    <script>
+        function returnToAdmin() {
+            window.location.href = "admin.php";
+        }
+    </script>
 </head>
 <body>
     <h1>GatorMeet</h1>
@@ -51,6 +56,18 @@
                         } else {
                             $row = "<tr class= 'orgDataRow'>";
                         }
+                        $name = $club['name'];
+                        $email = $club['email'];
+                        $id = $club['ClubID'];
+                        $members = $mysqli->query("SELECT * from UserClubs WHERE ClubID = $id");
+                        $numMem = mysqli_num_rows($members);
+                        $attendance = $mysqli->query("SELECT * FROM EventAttendees WHERE ClubID= $id");
+                        $numAtt = mysqli_num_rows($attendance);
+                        if ($numMem == 0) {
+                            $avg = 0;
+                        } else {
+                            $avg = $numAtt / $numMem;
+                        }
                         $row .= "<td>$name</td>";
                         $row .= "<td>$email</td>";
                         $row .= "<td>$numMem</td>";
@@ -67,7 +84,7 @@
         </table>
         <br> 
         <div id="orgDataButton">
-            <button id="returnAdminButton"><a href="./admin.php">Return to Admin</a></button>
+            <button id="returnAdminButton" onclick="returnToAdmin()">Return to Admin</button>
         </div>
     </div>
 </body>
