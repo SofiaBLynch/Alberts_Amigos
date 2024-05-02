@@ -7,6 +7,7 @@
     
     <title>Admin</title>
     <script>
+       
         function checkAddOrg()
         {
             var ready = true;
@@ -199,6 +200,13 @@
             window.location.href = "allOrgs.php";
         }
     </script>
+
+<link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div id="topBar">
@@ -219,6 +227,72 @@
             echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
             exit();
         } 
+
+// Handle deletion
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteUFID'])) {
+    $UFIDToDelete = mysqli_real_escape_string($mysqli, $_POST['deleteUFID']);
+    $stmt = $mysqli->prepare("DELETE FROM Users WHERE UFID = ?");
+$stmt->bind_param("s", $UFIDToDelete);
+if ($stmt->execute()) {
+    echo "<p>Record Deleted Successfully!</p>";
+} else {
+    echo "<p>Error: " . $stmt->error . "</p>";
+}
+$stmt->close();
+}
+
+if (isset($_GET['action']) && $_GET['action'] == 'filter') {
+    $nameFilter = $_GET['name'] ?? '';
+    $sql = "SELECT UFID, fullname, email, isAdmin FROM Users WHERE fullname LIKE ?";
+    $stmt = $mysqli->prepare($sql);
+    $searchTerm = "%" . $nameFilter . "%";
+    $stmt->bind_param("s", $searchTerm);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $users = [];
+    while ($row = $result->fetch_assoc()) {
+        $users[] = $row;
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($users);
+    exit();  
+}
+
+// Handle form submission for new user registration
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
+    $UFID = mysqli_real_escape_string($mysqli, $_POST['ufid']);
+    $fullname = mysqli_real_escape_string($mysqli, $_POST['name']);
+    $email = mysqli_real_escape_string($mysqli, $_POST['email']);
+    $password = mysqli_real_escape_string($mysqli, $_POST['password']);
+    $isAdmin = isset($_POST['isAdmin']) ? 1 : 0;
+    $stmt = $mysqli->prepare("INSERT INTO Users (UFID, fullname, email, passwordhash, isAdmin) VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssi", $UFID, $fullname, $email, $password, $isAdmin);
+if ($stmt->execute()) {
+    echo 'Signup successful!';
+} else {
+    echo 'Error: ' . $stmt->error;
+}
+$stmt->close();
+}
+
+// Handle user update
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateUFID'])) {
+    $UFID = mysqli_real_escape_string($mysqli, $_POST['updateUFID']);
+    $name = mysqli_real_escape_string($mysqli, $_POST['updateName']);
+    $email = mysqli_real_escape_string($mysqli, $_POST['updateEmail']);
+    $isAdmin = mysqli_real_escape_string($mysqli, $_POST['updateIsAdmin']);
+    $stmt = $mysqli->prepare("UPDATE Users SET fullname = ?, email = ?, isAdmin = ? WHERE UFID = ?");
+$stmt->bind_param("ssis", $name, $email, $isAdmin, $UFID);
+if ($stmt->execute()) {
+    echo "<p>User Updated Successfully!</p>";
+} else {
+    echo "<p>Error updating record: " . $stmt->error . "</p>";
+}
+$stmt->close();
+}
+
         if(array_key_exists("addOrganizationSubmit", $_POST))
         {
             $orgName = $_POST["addOrganizationName"];
@@ -615,7 +689,134 @@
         <div id="orgDataButton">
             <button id="AdminViewAll" onclick="redirectToAllOrgs()">View All</button>
         </div>
-        
     </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+  <label for="filterName">Filter by Name:</label>
+  <input type="text" id="filterName" class="form-control" onkeyup="filterUsers()" placeholder="Enter name to filter">
+</div>
+<div class="row justify-content-center">
+      <div class="col-md-6">
+        <table>
+          <thead>
+            <tr>
+              <th>UFID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Admin</th>
+			  <th>Delete</th>
+			  <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            // Assuming connection is already established above
+            $query = "SELECT UFID, fullname, email, isAdmin FROM Users";
+            $result = mysqli_query($mysqli, $query);
+            if (mysqli_num_rows($result) > 0) {
+              while($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row['UFID']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['fullname']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                echo "<td>" . ($row['isAdmin'] ? 'Yes' : 'No') . "</td>";
+                echo "<td>
+                        <form method='POST'>
+                          <input type='hidden' name='deleteUFID' value='" . $row['UFID'] . "'>
+                          <button type='submit' class='btn btn-danger'>Delete</button>
+                        </form>
+                      </td>";
+				echo "<td><button type='button' class='btn btn-info edit-btn' data-ufid='" . $row['UFID'] . "' data-name='" . $row['fullname'] . "' data-email='" . $row['email'] . "' data-isadmin='" . $row['isAdmin'] . "'>Edit</button></td>";
+                echo "</tr>";
+              }
+            } else {
+              echo "<tr><td colspan='4'>No users found</td></tr>";
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+   <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="updateForm" method="POST">
+    <input type="hidden" name="updateUFID" id="updateUFID">
+    <div class="form-group">
+        <label for="updateName">Name</label>
+        <input type="text" class="form-control" id="updateName" name="updateName">
+    </div>
+    <div class="form-group">
+        <label for="updateEmail">Email</label>
+        <input type="email" class="form-control" id="updateEmail" name="updateEmail">
+    </div>
+    <div class="form-group">
+        <label for="updateIsAdmin">Admin</label>
+        <select class="form-control" id="updateIsAdmin" name="updateIsAdmin">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+        </div>
+      </div>
+    </div>
+  </div>
     <br><br>
+<script>
+ function filterUsers() {
+    var inputText = document.getElementById('filterName').value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            updateTable(JSON.parse(this.responseText));  
+        }
+    };
+    xhttp.open("GET", "<?php echo $_SERVER['PHP_SELF']; ?>?action=filter&name=" + encodeURIComponent(inputText), true);
+    xhttp.send();
+}
+function updateTable(users) {
+    var table = document.querySelector('table tbody');
+    table.innerHTML = '';  // Clear the table first
+
+    users.forEach(function(user) {
+        var row = table.insertRow(-1);  // Insert a new row at the end of the table
+        row.innerHTML = `<td>${user.UFID}</td>
+                         <td>${user.fullname}</td>
+                         <td>${user.email}</td>
+                         <td>${user.isAdmin ? 'Yes' : 'No'}</td>
+                         <td><button onclick="deleteUser('${user.UFID}')">Delete</button></td>
+                         <td><button onclick="editUser('${user.UFID}', '${user.fullname}', '${user.email}', '${user.isAdmin}')">Edit</button></td>`;
+    });
+}
+$(document).ready(function() {
+      $('.edit-btn').click(function() {
+    var ufid = $(this).data('ufid');
+    var name = $(this).data('name');
+    var email = $(this).data('email');
+    var isAdmin = $(this).data('isadmin');
+
+    $('#updateUFID').val(ufid);
+    $('#updateName').val(name);
+    $('#updateEmail').val(email);
+    $('#updateIsAdmin').val(isAdmin == 1 ? "1" : "0"); // Ensure correct selection
+
+    $('#editUserModal').modal('show');
+});
+    });
+</script>
+
 </body>
