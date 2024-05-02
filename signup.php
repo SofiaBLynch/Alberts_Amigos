@@ -16,7 +16,7 @@
   h2 {
     color: #002C88;
     font-weight: 400;
-    font-szie: 28px;
+    font-size: 28px;
     margin-bottom: 20px;
   }
   .btn-custom-1 {
@@ -142,12 +142,12 @@
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="name" class="form-control" id="name" name="name" placeholder="Enter full name">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter full name">
             <span id="nameError" class="validation-message"></span>
           </div>
       <div class="form-group">
             <label for="name">UFID</label>
-            <input type="name" class="form-control" id="ufid" name="ufid" placeholder="Enter UFID">
+            <input type="text" class="form-control" id="ufid" name="ufid" placeholder="Enter UFID">
             <span id="ufidError" class="validation-message"></span>
           </div>
       <div class="form-group">
@@ -156,11 +156,11 @@
             <span id="emailError" class="validation-message"></span> <!-- Validation message for email -->
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password1">Password</label>
             <input type="password" class="form-control" id="password1" name="password" placeholder="Enter password">
           </div>
           <div class="form-group">
-            <label for="password">Re-enter Password</label>
+            <label for="password2">Re-enter Password</label>
             <input type="password" class="form-control" id="password2" name="password" placeholder="Enter password">
             <span id="passwordError" class="validation-message"></span> <!-- Validation message for password -->
           </div>
