@@ -55,9 +55,9 @@ $mysqli->close();
     <h1>GatorMeet</h1>
     <div class="navbar">
         <a href="./hub_page.php">My Clubs</a>
-        <?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) { ?>
-            <a href="./admin.php">Admin</a>
-        <?php } ?>
+        <?php if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
+            echo("<a href=''./admin.php'>Admin</a>");
+        } ?>
         <a href="./search_page.php">Join a New Club</a>
         <a href="logout.php" class="btn btn-danger">Logout</a>
     </div>
