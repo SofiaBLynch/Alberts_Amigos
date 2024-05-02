@@ -1,48 +1,4 @@
 #!/usr/local/bin/php
-<?php
-        session_start();
-        $mysqli = new mysqli("mysql.cise.ufl.edu", "chelseanguyen", "Caa20210408", "AlbertsAmigos");
-
-        // Check connection
-        if ($mysqli->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            exit();
-        }
-
-        if (!isset($_SESSION['UFID'])) {
-            // If UFID isn't set, redirect to the login page
-            header("Location: login.php");
-            exit();
-        }
-
-        $specific_ufid = $_SESSION['UFID'];
-
-
-        // Query to get the clubs based on UFID
-        $query = "SELECT c.* FROM UserClubs uc JOIN Clubs c ON uc.ClubID = c.ClubID WHERE uc.UFID = ?";
-        if ($stmt = $mysqli->prepare($query)) {
-            $stmt->bind_param("s", $specific_ufid); // Bind parameter
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                while ($club = $result->fetch_assoc()) {
-                    echo "<div class='button'>";
-                    echo "<h3>" . htmlspecialchars($club['name']) . "</h3>";
-                    echo "<p>" . htmlspecialchars($club['email']) . "</p>";
-                    echo "<button type='button' class='btn btn-primary'>View</button>";
-                    echo "</div>";
-                }
-            } else {
-                echo "<p>No clubs found.</p>";
-            }
-            $stmt->close();
-        } else {
-            echo "Failed to prepare the SQL statement.";
-        }
-
-        $mysqli->close();
-        ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,7 +49,50 @@
             });
         });
     </script>
+<?php
+        session_start();
+        $mysqli = new mysqli("mysql.cise.ufl.edu", "chelseanguyen", "Caa20210408", "AlbertsAmigos");
 
+        // Check connection
+        if ($mysqli->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+            exit();
+        }
+
+        if (!isset($_SESSION['UFID'])) {
+            // If UFID isn't set, redirect to the login page
+            header("Location: login.php");
+            exit();
+        }
+
+        $specific_ufid = $_SESSION['UFID'];
+
+
+        // Query to get the clubs based on UFID
+        $query = "SELECT c.* FROM UserClubs uc JOIN Clubs c ON uc.ClubID = c.ClubID WHERE uc.UFID = ?";
+        if ($stmt = $mysqli->prepare($query)) {
+            $stmt->bind_param("s", $specific_ufid); // Bind parameter
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                while ($club = $result->fetch_assoc()) {
+                    echo "<div class='button'>";
+                    echo "<h3>" . htmlspecialchars($club['name']) . "</h3>";
+                    echo "<p>" . htmlspecialchars($club['email']) . "</p>";
+                    echo "<button type='button' class='btn btn-primary'>View</button>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p>No clubs found.</p>";
+            }
+            $stmt->close();
+        } else {
+            echo "Failed to prepare the SQL statement.";
+        }
+
+        $mysqli->close();
+        ?>
 
 </body>
 
