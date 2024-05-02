@@ -114,7 +114,7 @@
         echo "<div class='container'>";
         echo "<div class='attendance-box'><h3>Attendance:</h3><form name='enter-code' action='event_code.php' method='post'><input type='text' class='attendance-input' name='code' placeholder='GBM1'><input type='hidden' name='clubId' value='".$club_id."'><input name='event' type='submit' class='attendance-submit'></form></div>";
         echo "<div class='points-box'><h3>Points:</h3><h4>" . $points . "</h4></div>";
-        echo "<div class='events-box'><h3>Events Attended:</h3>";
+        echo "<div class='events-box'><h3>Recent Events:</h3>";
         echo "<table class='events-table'><tr style='bold'><td>Event</td><td>Date</td><td>Points</td></tr>";
         $stmt = $mysqli->prepare("SELECT * FROM Events WHERE ClubID = ?");
         $stmt->bind_param("i", $club_id);
